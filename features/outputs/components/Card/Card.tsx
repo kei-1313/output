@@ -7,7 +7,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 
 const Card = () => { 
 	return (
-		<li className="flex gap-3">
+		<li className="grid grid-cols-card gap-3">
       <Link href="/" className="w-[92px] h-[92px] border-[1px] border-solid border-slate-300 bg-white rounded-lg flex items-center justify-center">
         <Image src="/images/dammy.png" width={40} height={40} alt="dammy"/>
       </Link>
@@ -16,15 +16,17 @@ const Card = () => {
           <h2 className="text-black text-base font-bold leading-6">Reactを学習できるサービスmosya Reactの技術的な紹介</h2>
         </Link>
         <div className="flex gap-2 mt-2 items-center">
-          <div className="">
+          <Link href="/" className="block">
             <Image className="rounded-full" src="/images/dammy.png" width={26} height={26} alt="dammy"/>
-          </div>
+          </Link>
           <div className="flex gap-1 items-center">
-            <span className="text-black text-[13px]">ユーザ名</span>
-            <span className="text-gray-500 text-[12px]">1日前</span>
+            <Link href="/" className="block">
+              <span className="text-black text-[13px]">ユーザ名</span>
+            </Link>
+            <span className="text-gray-500 text-[12px] inline-block mt-1">1日前</span>
             <div className="flex gap-1 items-center">
-              <IoMdHeartEmpty className="text-gray-400"/>
-              <span className="text-gray-400 text-[12px]">190</span>
+              <IoMdHeartEmpty className="text-gray-400 inline-block mt-1"/>
+              <span className="text-gray-400 text-[12px] inline-block mt-1">190</span>
             </div>
           </div>
         </div>

@@ -8,7 +8,11 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    
+    extend: {
+      gridTemplateColumns: {
+        'card': '92px 74%'
+      }
+    }
   },
   plugins: [],
 };
