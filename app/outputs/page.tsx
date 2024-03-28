@@ -1,4 +1,5 @@
 import CardList from "@/features/outputs/components/CardList/CardList"
+import CategoryList from "@/features/outputs/components/CategoryList/CategoryList"
 import PageTitle from "@/features/outputs/components/Title/PageTitle"
 
 
@@ -24,6 +25,7 @@ const outputsPage = async () => {
 	return (
 		<div className="max-w-[880px] mx-auto mt-[50px] px-5 ">
 			<PageTitle>OUTPUTS</PageTitle>
+			<CategoryList/>
       <CardList posts={posts}/>
     </div>
 	)
