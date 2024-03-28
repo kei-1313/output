@@ -17,10 +17,9 @@ interface CardProps {
 
 
 const Card:React.FC<CardProps> = ({post}) => {
-  console.log(post);
   
 	return (
-		<li className="grid grid-cols-card gap-3">
+		<li className="grid grid-cols-card gap-3 max-md:">
       <Link href="/" className="w-[92px] h-[92px] border-[1px] border-solid border-slate-300 bg-white rounded-lg flex items-center justify-center">
         <Image src="/images/dammy.png" width={40} height={40} alt="dammy"/>
       </Link>

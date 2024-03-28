@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'card': '92px 74%'
+        'card': '92px calc(100% - 104px)',
       }
     }
   },

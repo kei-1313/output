@@ -22,7 +22,7 @@ const outputsPage = async () => {
 	
 
 	return (
-		<div className="max-w-[880px] mx-auto mt-[50px]">
+		<div className="max-w-[880px] mx-auto mt-[50px] px-5 ">
 			<PageTitle>OUTPUTS</PageTitle>
       <CardList posts={posts}/>
     </div>
