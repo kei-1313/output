@@ -19,7 +19,7 @@ const CardList:React.FC<CardListProps> = ({posts}) => {
 		<div className=" mt-[50px]">
       <ul className="grid grid-cols-2 gap-x-[54px] gap-y-6 max-md:grid-cols-1">
 				{posts?.map((post, index) => (
-					<Card post={post}/>
+					<Card post={post} key={index}/>
 				))}
 			</ul>
     </div>

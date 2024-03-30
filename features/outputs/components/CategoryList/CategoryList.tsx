@@ -2,16 +2,22 @@
 
 import Category from "../Category/Category"
 
-const CategoryList = () => {
+interface CategoryListProps {
+  categories: [
+    {
+      id: string,
+      category: string
+    }
+  ]
+}
+
+const CategoryList:React.FC<CategoryListProps> = ({categories}) => {
 	return (
 		<div className="mt-[50px]">
       <ul className="flex flex-wrap gap-4">
-				{/* {posts?.map((post, index) => ( */}
-					<Category/>
-					<Category/>
-					<Category/>
-					<Category/>
-				{/* ))} */}
+				{categories?.map((category, index) => (
+					<Category category={category} key={index}/>
+				))}
 			</ul>
     </div>
 	)
