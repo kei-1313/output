@@ -7,11 +7,12 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeExternalLinks from 'rehype-external-links'
+import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLength";
 
 const outputsCreatePage = () => {
   const [source, setSource] = useState('')
 
-  console.log(source);
+  
   
 	return (
     <form>
@@ -77,7 +78,20 @@ const outputsCreatePage = () => {
             </Markdown>
           </article>
         </div>
+        
       </div>
+      {/* create page footer */}
+      <div className="flex justify-between px-8">
+          <div>
+
+          </div>
+          <div className="flex gap-3">
+              <div>
+
+              </div>
+              <ArticleLength articleLength={source.length}/>
+          </div>
+        </div>
     </form>
 	)
 }
