@@ -2,30 +2,10 @@
 
 import { useCallback, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+// import { v4 as uuidv4 } from 'uuid';
 
 const outputsCreatePage = () => {
-  const [bodyContent, setBodyContent] = useState("")
-  const [isEditorEdit, setIsEditorEdit] = useState(true)
-
-  const handleBobyContent = useCallback((e) => {
-    console.log(e.target.innerText.length);
-    // console.log(e.key);
-    
-    //本文が空欄の場合はplaceholderを表示させる
-    if(e.target.innerText.trim().length > 0) {
-      setIsEditorEdit(false)
-    } else {
-      setIsEditorEdit(true)
-      console.log("true");
-      
-    }
-  },[])
-
-  const handleBobyContentKeyDown = useCallback((e) => {
-    if(e.target.innerText.trim().length <= 0 && (e.key === 'Delete' || e.key === 'Backspace')) {
-      e.preventDefault()
-    }
-  },[])
+  
 
 	return (
     <form>
@@ -60,13 +40,16 @@ const outputsCreatePage = () => {
           />
         </div>
         <div>
-          <div className="focus:outline-none" contentEditable="true" onInput={handleBobyContent} onKeyDown={handleBobyContentKeyDown}>
-            {isEditorEdit? (
-              <p className={"text-base focus:outline-none is-editor-empty"} data-placeholder="本文を書く"></p>
-            ):(
-              <p className={"text-base focus:outline-none"}></p>
-            )}
+          <div className="">
+            <textarea
+              className='w-full outline-0 leading-relaxed bg-transparent resize-none'
+              placeholder='本文を書く'
+              autoFocus
+            />
           </div>
+        </div>
+        <div>
+          
         </div>
       </div>
     </form>
