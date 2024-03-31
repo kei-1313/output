@@ -3,10 +3,16 @@
 import { useCallback, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 // import { v4 as uuidv4 } from 'uuid';
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeExternalLinks from 'rehype-external-links'
 
 const outputsCreatePage = () => {
-  
+  const [source, setSource] = useState('')
 
+  console.log(source);
+  
 	return (
     <form>
       <div className="flex h-14 items-center justify-between gap-2 px-4">
@@ -44,12 +50,32 @@ const outputsCreatePage = () => {
             <textarea
               className='w-full outline-0 leading-relaxed bg-transparent resize-none'
               placeholder='本文を書く'
+              value={source}
+              onChange={(e) => {
+                e.target.style.height = 'auto';
+                e.target.style.height = e.target.scrollHeight + 'px';
+                setSource(e.target.value)
+              }
+              }
               autoFocus
             />
           </div>
         </div>
         <div>
-          
+          <article className='w-full pt-5'>
+            <Markdown
+              className='prose min-w-full'
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[
+                rehypeSanitize,
+                [rehypeExternalLinks,
+                { content: { type: 'text', value: '🔗' } }
+                ],
+              ]}
+            >
+              {source}
+            </Markdown>
+          </article>
         </div>
       </div>
     </form>
