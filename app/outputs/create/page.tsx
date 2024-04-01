@@ -2,7 +2,6 @@
 
 import { useCallback, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-// import { v4 as uuidv4 } from 'uuid';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSanitize from 'rehype-sanitize'
@@ -12,10 +11,8 @@ import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLe
 const outputsCreatePage = () => {
   const [source, setSource] = useState('')
 
-  
-  
 	return (
-    <form>
+    <form className="min-h-screen">
       <div className="flex h-14 items-center justify-between gap-2 px-4">
         <div>
           <button className="rounded-full w-[36px] h-[36px] hover:bg-sky-50 transition duration-300">
@@ -27,9 +24,18 @@ const outputsCreatePage = () => {
             <button type="submit" className="w-20 text-center text-white text-sm rounded-full bg-cyan-950 py-1">保存</button>
           </div>
         </div>
-        <div className="flex gap-2 pr-20">
+        <div className="flex gap-2 pr-40 relative">
           <div className="cursor-pointer">
             <span className="text-sm text-slate-500">#タグ</span>
+          </div>
+          <div className="absolute top-8 -left-[100px] w-72 border border-slate-300/50 rounded-t-xl text-sm leading-normal">
+           <div className="flex flex-wrap gap-2 p-3">
+              <div className="flex gap-1 items-center border border-slate-300/50  rounded-full py-1 px-3">
+                <span>React</span>
+                <span className="text-slate-300 cursor-pointer hover:text-slate-400 transition duration-300">✗</span>
+              </div>
+              <input className="outline-none " type="text" name="" id="" placeholder="タグを追加"/>
+           </div>
           </div>
         </div>
       </div>
