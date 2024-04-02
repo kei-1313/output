@@ -10,6 +10,12 @@ import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLe
 
 const outputsCreatePage = () => {
   const [source, setSource] = useState('')
+  const [tags, setTags] = useState([
+    {
+      id: 1,
+      text: 'React'
+    }
+  ])
 
 	return (
     <form className="min-h-screen">
@@ -30,10 +36,12 @@ const outputsCreatePage = () => {
           </div>
           <div className="absolute top-8 -left-[100px] w-72 border border-slate-300/50 rounded-t-xl text-sm leading-normal">
            <div className="flex flex-wrap gap-2 p-3">
-              <div className="flex gap-1 items-center border border-slate-300/50  rounded-full py-1 px-3">
-                <span>React</span>
-                <span className="text-slate-300 cursor-pointer hover:text-slate-400 transition duration-300">✗</span>
-              </div>
+              {tags?.map((tag, index) => (
+                <div className="flex gap-1 items-center border border-slate-300/50  rounded-full py-1 px-3">
+                  <span>{tag.text}</span>
+                  <span className="text-slate-300 cursor-pointer hover:text-slate-400 transition duration-300">✗</span>
+                </div>
+              ))}
               <input className="outline-none " type="text" name="" id="" placeholder="タグを追加"/>
            </div>
           </div>
