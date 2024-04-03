@@ -8,14 +8,42 @@ import rehypeSanitize from 'rehype-sanitize'
 import rehypeExternalLinks from 'rehype-external-links'
 import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLength";
 
+
+interface Tag {
+  id: number;
+  text: string;
+}
+
 const outputsCreatePage = () => {
   const [source, setSource] = useState('')
-  const [tags, setTags] = useState([
-    {
-      id: 1,
-      text: 'React'
+  const [tags, setTags] = useState<Tag[]>([])
+  const [tagText, setTagText] = useState('')
+
+  const handleEnterTag = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    //Enterが押された場合
+    console.log(event.key);
+    
+    if(event.key === 'Enter') {
+      if(tagText === '') {
+        event.preventDefault();
+        return
+      }
+
+      event.preventDefault();
+      const addId = tags.length + 1
+      const newTag = {
+        id: addId,
+        text: tagText
+      }
+
+      setTags(prevTags => [...prevTags, newTag])
+      setTagText('')
     }
-  ])
+  }
+  
+  const handleDeleteTag = (id: number) => {
+    setTags(prevTags => prevTags.filter(tag => tag.id !== id));
+  }
 
 	return (
     <form className="min-h-screen">
@@ -37,12 +65,12 @@ const outputsCreatePage = () => {
           <div className="absolute top-8 -left-[100px] w-72 border border-slate-300/50 rounded-t-xl text-sm leading-normal">
            <div className="flex flex-wrap gap-2 p-3">
               {tags?.map((tag, index) => (
-                <div className="flex gap-1 items-center border border-slate-300/50  rounded-full py-1 px-3">
+                <div className="flex gap-1 items-center border border-slate-300/50  rounded-full py-1 px-3" key={index}>
                   <span>{tag.text}</span>
-                  <span className="text-slate-300 cursor-pointer hover:text-slate-400 transition duration-300">✗</span>
+                  <span onClick={() => handleDeleteTag(tag.id)} className="text-slate-300 cursor-pointer hover:text-slate-400 transition duration-300">✗</span>
                 </div>
               ))}
-              <input className="outline-none " type="text" name="" id="" placeholder="タグを追加"/>
+              <input className="outline-none" value={tagText} onChange={(event) => setTagText(event.target.value)} onKeyUp={handleEnterTag} type="text" name="" id="" placeholder="タグを追加"/>
            </div>
           </div>
         </div>
