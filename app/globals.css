@@ -2,3 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  letter-spacing: 0.05em;
+}
+
+h1 {
+
+}
+
+
+.is-editor-empty:first-child:before {
+  color: #718096;
+  opacity: 0.7;
+  content: attr(data-placeholder);
+  pointer-events: none;
+}
