@@ -8,7 +8,7 @@ const ProfileImage = () => {
           <Image className="rounded-full" src="/images/dammy.png" width={64} height={64} alt="dammy"/>
         </div>
         <div>
-          <button className="inline-flex h-10 items-center gap-2 text-sm rounded-full border border-slate-500/50 px-4 hover:bg-slate-100 transition duration-300">プロフィール画像を変更</button>
+          <button className="inline-flex h-10 items-center gap-2 text-sm rounded-full border border-slate-300/50 px-4 hover:bg-slate-100 transition duration-300">プロフィール画像を変更</button>
         </div>
       </div>
     </div>
