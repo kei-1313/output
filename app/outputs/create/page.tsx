@@ -67,7 +67,7 @@ const outputsCreatePage = () => {
           </button>
         </div>
         <div className="flex-1 lg:justify-center">
-          <div className="text-center">
+          <div className="lg:text-center">
             <button type="submit" className="w-20 text-center text-white text-sm rounded-full bg-cyan-950 py-1">保存</button>
           </div>
         </div>
