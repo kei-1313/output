@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const ProfileImage = () => { 
+const ProfileImage = () => {
 	return (
 		<div className="overflow-hidden rounded-2xl border border-slate-300/50 p-6 md:p-7">
       <div className="flex gap-6 items-center">
