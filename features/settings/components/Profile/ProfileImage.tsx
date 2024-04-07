@@ -49,9 +49,6 @@ const ProfileImage = () => {
 
     //アイコンを選択すると画像が切り替わる
     setAvatarUrl(window.URL.createObjectURL(files[0]))
-
-    console.log("rendering");
-    
   }
 
 	return (
