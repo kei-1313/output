@@ -43,9 +43,6 @@ const ProfileImage = () => {
 
     // 画像をセット
     setAvatar(files[0])
-    
-    // //ファイル選択ボタンのテキストを変更
-    // setFileButtonText(files[0].name)
 
     //アイコンを選択すると画像が切り替わる
     setAvatarUrl(window.URL.createObjectURL(files[0]))
