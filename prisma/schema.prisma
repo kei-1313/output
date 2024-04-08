@@ -21,4 +21,91 @@ model User {
     profile String
     emailVerified DateTime?
     image String?
+    Accounts Account[]
+    Posts Post[]
+    Sessions Session[]
+    Likes Like[]
+}
+
+model Account {
+    id                String @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String
+    access_token      String
+    expires_at        Int
+    token_type        String
+    scope             String
+    id_token          String
+    session_state     String?
+    User              User     @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  User         User     @relation(fields: [userId], references: [id])
+}
+
+model VerificationToken {
+  identifier String   @id
+  token      String   @unique
+  expires    DateTime
+}
+
+model Post {
+  id                String            @id @default(uuid())
+  userId            String
+  title             String
+  thumbnail         String
+  created_at        DateTime
+  updated_at        DateTime
+  User              User              @relation(fields: [userId], references: [id])
+  PostFormatBases   PostFormatBase[]
+  PostFormatChallenges PostFormatChallenge[]
+  CategoryRelations CategoryRelation[]
+  Likes             Like[]
+}
+
+model PostFormatBase {
+  id       String @id @default(uuid())
+  postId   String
+  contents String
+  Post     Post   @relation(fields: [postId], references: [id])
+}
+
+model PostFormatChallenge {
+  id       String @id @default(uuid())
+  postId   String
+  theme    String
+  contents String
+  Post     Post   @relation(fields: [postId], references: [id])
+}
+
+model Category {
+  id             String            @id @default(uuid())
+  label          String            @unique
+  name           String            @unique
+  icon           String?
+  CategoryRelations CategoryRelation[]
+}
+
+model CategoryRelation {
+  postId     String
+  categoryId String
+  Post       Post   @relation(fields: [postId], references: [id])
+  Category   Category @relation(fields: [categoryId], references: [id])
+  @@id([postId, categoryId])
+}
+
+model Like {
+  id     String @id @default(uuid())
+  postId String
+  userId String
+  Post   Post   @relation(fields: [postId], references: [id])
+  User   User   @relation(fields: [userId], references: [id])
 }
