@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+
 import { FaArrowLeft } from "react-icons/fa";
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -9,6 +10,8 @@ import rehypeExternalLinks from 'rehype-external-links'
 import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLength";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
 
 
 interface Tag {
@@ -17,6 +20,7 @@ interface Tag {
 }
 
 const outputsCreatePage = () => {
+  const router = useRouter()
   const [source, setSource] = useState('')
   const [tags, setTags] = useState<Tag[]>([])
   const [tagText, setTagText] = useState('')
@@ -94,6 +98,9 @@ const outputsCreatePage = () => {
         },
         body: JSON.stringify(newPost)
       })
+
+      reset()
+      router.push("/outputs")
     } catch (error) {
       //エラー処理
       console.error(error)
