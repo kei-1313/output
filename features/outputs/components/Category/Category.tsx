@@ -11,7 +11,6 @@ interface CategoryProps {
 }
 
 const Category:React.FC<CategoryProps> = ({category}) => {
-  console.log(category);
 	return (
 		<li className="w-[62px] flex justify-center">
       <Link href="/" className="">
