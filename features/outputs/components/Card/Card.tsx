@@ -11,14 +11,15 @@ interface CardProps {
 }
 
 const Card:React.FC<CardProps> = ({post}) => {
-
+  console.log(post);
+  
 	return (
-		<li className="grid grid-cols-card gap-3 max-md:">
-      <Link href="/" className="w-[92px] h-[92px] border-[1px] border-solid border-slate-300 bg-white rounded-lg flex items-center justify-center">
+		<li className="grid grid-cols-card gap-3" key={post.id}>
+      <Link href={`/outputs/posts/${post.id}`} className="w-[92px] h-[92px] border-[1px] border-solid border-slate-300 bg-white rounded-lg flex items-center justify-center">
         <Image src="/images/dammy.png" width={40} height={40} alt="dammy"/>
       </Link>
       <div>
-        <Link href="/">
+        <Link href={`/outputs/posts/${post.id}`}>
           <h2 className="text-black text-base font-bold leading-6">{post.title}</h2>
         </Link>
         <div className="flex gap-2 mt-2 items-center">
