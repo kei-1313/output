@@ -38,7 +38,11 @@ const Card:React.FC<CardProps> = ({post}) => {
             <span className="text-gray-500 text-[12px] inline-block mt-1">{post.createAt}</span>
             <div className="flex gap-1 items-center">
               <IoMdHeartEmpty className="text-gray-400 inline-block mt-1"/>
-              <span className="text-gray-400 text-[12px] inline-block mt-1">{post.likes}</span>
+              {Number(post.likes) > 0 ? (
+                <span className="text-gray-400 text-[12px] inline-block mt-1">{post.likes}</span>
+              ) : (
+                <span className="text-gray-400 text-[12px] inline-block mt-1">0</span>
+              )}
             </div>
           </div>
         </div>
