@@ -1,12 +1,17 @@
 "use client"
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
+
 import { FaArrowLeft } from "react-icons/fa";
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeExternalLinks from 'rehype-external-links'
 import ArticleLength from "@/features/outputs/components/ArticleLength/ArticleLength";
+
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
 
 
 interface Tag {
@@ -15,6 +20,7 @@ interface Tag {
 }
 
 const outputsCreatePage = () => {
+  const router = useRouter()
   const [source, setSource] = useState('')
   const [tags, setTags] = useState<Tag[]>([])
   const [tagText, setTagText] = useState('')
@@ -58,8 +64,51 @@ const outputsCreatePage = () => {
     setTags(prevTags => [...prevTags, newTag])
   }
 
+  //投稿をPOSTする
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+    },
+    reset
+  } = useForm<FieldValues>(
+    {
+      defaultValues: {
+        title: '',
+        contents: ''
+      }
+    }
+  )
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const newPost = {
+        title: data.title,
+        contents: data.contents,
+        thumbnail: "thumbnail",
+        userId: "cluf8ddnh0001fwhr0nwcwso0"
+      }
+      console.log(newPost);
+      
+      const res = await fetch('/api/posts/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPost)
+      })
+
+      reset()
+      router.push("/outputs")
+    } catch (error) {
+      //エラー処理
+      console.error(error)
+    }
+  }
+
 	return (
-    <form className="min-h-screen">
+    <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex h-14 items-center justify-between gap-2 px-4">
         <div className="lg:flex-1">
           <button className="rounded-full w-[36px] h-[36px] hover:bg-sky-50 transition duration-300">
@@ -105,50 +154,45 @@ const outputsCreatePage = () => {
       </div>
       <div className="max-w-[580px] mx-auto px-6 py-24">
         <div className="mb-8">
-          <textarea 
+          <textarea
+            {...register("title")}
             className="w-full outline-0 leading-relaxed text-xl bg-transparent resize-none"  
             onChange={(e) => {
               e.target.style.height = 'auto';
               e.target.style.height = e.target.scrollHeight + 'px';
             }}
-            name="" 
-            id="" 
             placeholder="タイトル"
           />
         </div>
         <div>
-          <div className="">
-            <textarea
-              className='w-full outline-0 leading-relaxed bg-transparent resize-none'
-              placeholder='本文を書く'
-              value={source}
-              onChange={(e) => {
-                e.target.style.height = 'auto';
-                e.target.style.height = e.target.scrollHeight + 'px';
-                setSource(e.target.value)
-              }
-              }
-              autoFocus
-            />
-          </div>
+          <textarea
+            {...register("contents")}
+            className='w-full outline-0 leading-relaxed bg-transparent resize-none'
+            placeholder='本文を書く'
+            value={source}
+            onChange={(e) => {
+              e.target.style.height = 'auto';
+              e.target.style.height = e.target.scrollHeight + 'px';
+              setSource(e.target.value)
+            }
+            }
+            autoFocus
+          />
         </div>
-        <div>
-          <article className='w-full pt-5'>
-            <Markdown
-              className='prose min-w-full'
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[
-                rehypeSanitize,
-                [rehypeExternalLinks,
-                { content: { type: 'text', value: '🔗' } }
-                ],
-              ]}
-            >
-              {source}
-            </Markdown>
-          </article>
-        </div>
-        
+        <article className='w-full pt-5'>
+          <Markdown
+            className='prose min-w-full'
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[
+              rehypeSanitize,
+              [rehypeExternalLinks,
+              { content: { type: 'text', value: '🔗' } }
+              ],
+            ]}
+          >
+            {source}
+          </Markdown>
+        </article>
       </div>
       {/* create page footer */}
       <div className="flex justify-between px-8 fixed bottom-10 left-0 w-full">

@@ -4,20 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { IoMdHeartEmpty } from "react-icons/io";
 
+import formatDate from "@/utils/date/formatDate"
+
 interface CardProps {
-  post: {
-    username : string,
-    title: string,
-    body: string,
-    likes: string,
-    createAt : string
-  }
-	
+  post: any
 }
 
-
 const Card:React.FC<CardProps> = ({post}) => {
-  
+
 	return (
 		<li className="grid grid-cols-card gap-3 max-md:">
       <Link href="/" className="w-[92px] h-[92px] border-[1px] border-solid border-slate-300 bg-white rounded-lg flex items-center justify-center">
@@ -35,10 +29,14 @@ const Card:React.FC<CardProps> = ({post}) => {
             <Link href="/" className="block">
               <span className="text-black text-[13px]">{post.username}</span>
             </Link>
-            <span className="text-gray-500 text-[12px] inline-block mt-1">{post.createAt}</span>
+            <span className="text-gray-500 text-[12px] inline-block mt-1">{formatDate(post.created_at)}</span>
             <div className="flex gap-1 items-center">
               <IoMdHeartEmpty className="text-gray-400 inline-block mt-1"/>
-              <span className="text-gray-400 text-[12px] inline-block mt-1">{post.likes}</span>
+              {Number(post.likes) > 0 ? (
+                <span className="text-gray-400 text-[12px] inline-block mt-1">{post.likes}</span>
+              ) : (
+                <span className="text-gray-400 text-[12px] inline-block mt-1">0</span>
+              )}
             </div>
           </div>
         </div>
