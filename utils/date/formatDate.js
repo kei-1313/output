@@ -1,8 +1,8 @@
 const formatDate = (createdAt) => {
-  const currentTime = new Date()
-  const postDayTime = new Date(createdAt)
-  const diffTime = currentTime - postDayTime
-  
+  const currentTime = new Date();
+  const postDayTime = new Date(createdAt);
+  const diffTime = currentTime - postDayTime;
+
   const seconds = Math.floor(diffTime / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -17,7 +17,6 @@ const formatDate = (createdAt) => {
   } else {
     return `${seconds}秒前`;
   }
-}
+};
 
-export default formatDate
-
+export default formatDate;

@@ -1,8 +1,7 @@
-
-export const createPostService = (postRepository:any) => {
+export const createPostService = (postRepository: any) => {
   return {
     getPostAll: async () => {
-      return await postRepository.findPostAll()
-    }
-  }
-}
+      return await postRepository.findPostAll();
+    },
+  };
+};
