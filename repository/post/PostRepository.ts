@@ -11,5 +11,18 @@ export const createPostRepository = () => {
         },
       });
     },
+    findPostById: async (postId: string) => {
+      return await prisma.post.findUnique({
+        where: {
+          id: postId
+        },
+        include: {
+          User: true,
+          PostFormatBases: true,
+          CategoryRelations: true,
+          Likes: true,
+        }
+      })
+    }
   };
 };

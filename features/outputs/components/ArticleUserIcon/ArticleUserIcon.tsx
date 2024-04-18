@@ -2,17 +2,24 @@ import Avatar from '@/features/utils/Avatar/Avatar';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+interface ArticleUserProps {
+  href: string;
+  src: string;
+  username: string;
+  width: number;
+  height: number;
+}
 
-const ArticleUserIcon = () => {
+const ArticleUserIcon = ({href, src, username, width, height}: ArticleUserProps) => {
   return (
     <div className="flex items-center gap-3">
-      <Avatar href={"/settings"} src={""} width={56} height={56} alt={"dammy"}/>
+      <Avatar href={href} src={src} width={width} height={height} alt={username}/>
       <div>
         <Link
           className="text-base leading-normal sm:text-lg"
-          href={'/settings'}
+          href={href}
         >
-          dalmi
+          {username}
         </Link>
       </div>
     </div>

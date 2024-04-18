@@ -1,3 +1,4 @@
+import { postById } from "@/action/post/postById"
 import ArticleCategoryList from "@/features/outputs/components/ArticleCategoryList/ArticleCategoryList"
 import ArticleContent from "@/features/outputs/components/ArticleContent/ArticleContent"
 import ArticleDate from "@/features/outputs/components/ArticleDate/ArticleDate"
@@ -6,23 +7,25 @@ import ArticleTitle from "@/features/outputs/components/Title/ArticleTitle"
 
 
 
-const postDetailPage = ({ params }: { params: { id: string } }) => {
+const postDetailPage = async ({ params }: { params: { id: string } }) => {
+  const post = await postById(params.id)
+  console.log(post);
 
   return (
-    <article className="max-w-[580px] mx-auto px-6 py-24">
+    <article className="max-w-[580px] mx-auto px-6 pt-32 pb-24">
       <div className="mb-10">
-        <ArticleTitle title={"テスト"}/>
+        <ArticleTitle title={post.title}/>
       </div>
       <div className="mb-10">
-        <ArticleDate/>
+        <ArticleDate createAt={post.created_at} width={38} height={38} href={"/settings"} src={post.User.image} username={post.User.name}/>
       </div>
       <div className="mb-20">
-        <ArticleContent content={"# 見出し\n ## 見出し2\n ### 見出し3"}/>
+        <ArticleContent content={post.PostFormatBases[0].contents}/>
       </div>
       <div className="mb-20">
         <ArticleCategoryList/>
       </div>
-      <ArticleUserIcon/>
+      <ArticleUserIcon width={56} height={56} href={"/settings"} src={post.User.image} username={post.User.name}/>
     </article>
   )
 }

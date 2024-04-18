@@ -1,23 +1,21 @@
-import Avatar from '@/features/utils/Avatar/Avatar'
-import Link from 'next/link'
-import React from 'react'
-
 import formatPostDate from '@/utils/date/formatPostDate';
+import ArticleUserIcon from '../ArticleUserIcon/ArticleUserIcon';
 
-const ArticleDate = () => {
+interface ArticleDateProps {
+  createAt: string;
+  href: string;
+  src: string;
+  username: string;
+  width: number;
+  height: number;
+}
+
+const ArticleDate = ({createAt, href, src, username, width, height}: ArticleDateProps) => {
   return (
     <div className="flex items-center gap-3">
-      <Avatar href={"/settings"} src={""} width={38} height={38} alt={"dammy"}/>
+      <ArticleUserIcon href={href} src={src} width={width} height={height} username={username} />
       <div>
-        <Link
-          className="text-base leading-normal sm:text-lg"
-          href={'/settings'}
-        >
-          dalmi
-        </Link>
-      </div>
-      <div>
-        <time>{formatPostDate("2024/4/10")}</time>
+        <time className="text-gray-700">{formatPostDate(createAt)}</time>
       </div>
     </div>
   )

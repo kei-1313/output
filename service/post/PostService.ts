@@ -3,5 +3,8 @@ export const createPostService = (postRepository: any) => {
     getPostAll: async () => {
       return await postRepository.findPostAll();
     },
+    getPostById: async (postId:string) => {
+      return await postRepository.findPostById(postId);
+    }
   };
 };
