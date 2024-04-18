@@ -1,4 +1,4 @@
-const formatDate = (createdAt) => {
+const formatPostTime = (createdAt) => {
   const currentTime = new Date();
   const postDayTime = new Date(createdAt);
   const diffTime = currentTime - postDayTime;
@@ -19,4 +19,4 @@ const formatDate = (createdAt) => {
   }
 };
 
-export default formatDate;
+export default formatPostTime;

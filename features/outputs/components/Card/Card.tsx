@@ -4,14 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoMdHeartEmpty } from 'react-icons/io';
 
-import formatDate from '@/utils/date/formatDate';
+import formatPostTime from '@/utils/date/formatPostTime';
 
 interface CardProps {
   post: any;
 }
 
 const Card: React.FC<CardProps> = ({ post }) => {
-  console.log(post);
 
   return (
     <li className="grid grid-cols-card gap-3" key={post.id}>
@@ -42,7 +41,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
               <span className="text-[13px] text-black">{post.username}</span>
             </Link>
             <span className="mt-1 inline-block text-[12px] text-gray-500">
-              {formatDate(post.created_at)}
+              {formatPostTime(post.created_at)}
             </span>
             <div className="flex items-center gap-1">
               <IoMdHeartEmpty className="mt-1 inline-block text-gray-400" />
