@@ -1,9 +1,9 @@
 'use client';
 
+import { authenticate } from '@/action/auth/authenticate';
 import { Button } from '@/components/ui/button';
 import FormItem from '@/features/auth/components/FormItem/FormItem';
 import PageTitle from '@/features/auth/components/PageTitle/PageTitle';
-import { authenticate } from '@/lib/actions';
 import Link from 'next/link';
 import { useFormState } from 'react-dom';
 

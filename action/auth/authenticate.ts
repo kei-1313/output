@@ -10,16 +10,16 @@ const FormSchema = z.object({
   password: z.string().min(8),
 });
 
-const CreateUser = FormSchema.omit({});
-
 /**
  * @description 認証をする
  * @param prevState アクション実行時のstate
  * @param formData フォームデータ
  */
 export async function authenticate(prevState: boolean, formData: FormData) {
+  const parsedData = FormSchema.parse(Object.fromEntries(formData));
+
   try {
-    await signIn('credentials', Object.fromEntries(formData));
+    await signIn('credentials', parsedData);
     return true;
   } catch (error) {
     if (error instanceof AuthError) {
@@ -36,20 +36,4 @@ export async function authenticate(prevState: boolean, formData: FormData) {
 
     throw error;
   }
-}
-
-export async function createUser(formData: FormData) {
-  const { name, email, password } = CreateUser.parse({
-    name: formData.get('name'),
-    email: formData.get('email'),
-    password: formData.get('password'),
-  });
-
-  await fetch('/api/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, password }),
-  });
 }
