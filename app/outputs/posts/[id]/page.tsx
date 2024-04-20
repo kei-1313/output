@@ -4,6 +4,7 @@ import ArticleContent from "@/features/outputs/components/ArticleContent/Article
 import ArticleDate from "@/features/outputs/components/ArticleDate/ArticleDate"
 import ArticleHeader from "@/features/outputs/components/ArticleHeader/ArticleHeader"
 import ArticleUserIcon from "@/features/outputs/components/ArticleUserIcon/ArticleUserIcon"
+import ArticleUserLinkHome from "@/features/outputs/components/ArticleUserLinkHome/ArticleUserLinkHome"
 import ArticleTitle from "@/features/outputs/components/Title/ArticleTitle"
 
 
@@ -15,7 +16,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
   return (
     <article>
       <ArticleHeader/>
-      <div className="max-w-[580px] mx-auto px-6 pt-32 pb-24">
+      <div className="max-w-[580px] mx-auto px-6 pt-32 pb-24 max-md:px-4">
         <div className="mb-10">
           <ArticleTitle title={post.title}/>
         </div>
@@ -28,7 +29,12 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
         <div className="mb-20">
           <ArticleCategoryList/>
         </div>
-        <ArticleUserIcon width={56} height={56} href={"/settings"} src={post.User.image} username={post.User.name}/>
+        <div className="mb-20">
+          <ArticleUserIcon width={56} height={56} href={"/settings"} src={post.User.image} username={post.User.name}/>
+        </div>
+        <div className="flex justify-center">
+          <ArticleUserLinkHome username={post.User.name} href={"/settings"}/>
+        </div>
       </div>
     </article>
   )
