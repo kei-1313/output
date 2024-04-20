@@ -12,6 +12,9 @@ const config: Config = {
       gridTemplateColumns: {
         card: '92px calc(100% - 104px)',
       },
+      colors: {
+        'footer': '#f7fafc',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
