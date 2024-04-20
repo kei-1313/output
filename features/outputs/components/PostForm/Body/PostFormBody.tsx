@@ -1,4 +1,4 @@
-import { UseFormRegisterReturn } from "react-hook-form";
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface PostFormBodyProps {
   register?: UseFormRegisterReturn;
@@ -6,7 +6,7 @@ interface PostFormBodyProps {
   setSource(event: string): void;
 }
 
-const PostFormBody = ({register, source, setSource}: PostFormBodyProps) => {
+const PostFormBody = ({ register, source, setSource }: PostFormBodyProps) => {
   return (
     <textarea
       {...register}
@@ -20,7 +20,7 @@ const PostFormBody = ({register, source, setSource}: PostFormBodyProps) => {
       }}
       autoFocus
     />
-  )
-}
+  );
+};
 
-export default PostFormBody
+export default PostFormBody;

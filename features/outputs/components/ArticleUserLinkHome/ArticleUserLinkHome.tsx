@@ -1,18 +1,18 @@
-import Link from "next/link";
-import { IoHome } from "react-icons/io5";
+import Link from 'next/link';
+import { IoHome } from 'react-icons/io5';
 
 interface ArticleUserLinkHomeProps {
   username: string;
   href: string;
 }
 
-const ArticleUserLinkHome = ({username, href} : ArticleUserLinkHomeProps) => {
+const ArticleUserLinkHome = ({ username, href }: ArticleUserLinkHomeProps) => {
   return (
-    <Link href={href} className="flex gap-2 items-center">
-      <IoHome width={20} height={20}/>
-      <span className="text-sm">{ username }</span>
+    <Link href={href} className="flex items-center gap-2">
+      <IoHome width={20} height={20} />
+      <span className="text-sm">{username}</span>
     </Link>
-  )
-}
+  );
+};
 
-export default ArticleUserLinkHome
+export default ArticleUserLinkHome;

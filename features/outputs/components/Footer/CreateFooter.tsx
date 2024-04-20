@@ -1,11 +1,11 @@
-import React from 'react'
-import ArticleLength from '../ArticleLength/ArticleLength'
+import React from 'react';
+import ArticleLength from '../ArticleLength/ArticleLength';
 
 interface CreateFooterProps {
   length: number;
 }
 
-const CreateFooter = ({length} : CreateFooterProps) => {
+const CreateFooter = ({ length }: CreateFooterProps) => {
   return (
     <footer>
       <div className="fixed bottom-10 left-0 flex w-full justify-between px-8">
@@ -16,7 +16,7 @@ const CreateFooter = ({length} : CreateFooterProps) => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default CreateFooter
+export default CreateFooter;

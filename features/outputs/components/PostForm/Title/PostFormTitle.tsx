@@ -1,10 +1,10 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface PostFormTitleProps {
-  register?: UseFormRegisterReturn
+  register?: UseFormRegisterReturn;
 }
 
-const PostFormTitle = ({register}: PostFormTitleProps) => {
+const PostFormTitle = ({ register }: PostFormTitleProps) => {
   return (
     <textarea
       {...register}
@@ -15,7 +15,7 @@ const PostFormTitle = ({register}: PostFormTitleProps) => {
       }}
       placeholder="タイトル"
     />
-  )
-}
+  );
+};
 
-export default PostFormTitle
+export default PostFormTitle;

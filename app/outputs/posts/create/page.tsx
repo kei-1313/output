@@ -14,7 +14,6 @@ import { CreateHeader } from '@/features/outputs/components/Header/CreateHeader'
 import PostFormTitle from '@/features/outputs/components/PostForm/Title/PostFormTitle';
 import PostFormBody from '@/features/outputs/components/PostForm/Body/PostFormBody';
 
-
 const OutputsCreatePage = () => {
   const router = useRouter();
   const [source, setSource] = useState('');
@@ -34,10 +33,9 @@ const OutputsCreatePage = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-
       //空白の場合
-      if(!data.title || !data.contents) {
-        throw Error("入力してください");
+      if (!data.title || !data.contents) {
+        throw Error('入力してください');
       }
 
       const newPost = {
@@ -66,13 +64,17 @@ const OutputsCreatePage = () => {
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
-      <CreateHeader/>
+      <CreateHeader />
       <div className="mx-auto max-w-[580px] px-6 py-24">
         <div className="mb-8">
-          <PostFormTitle register={register('title')}/>
+          <PostFormTitle register={register('title')} />
         </div>
         <div>
-          <PostFormBody register={register('contents')} source={source} setSource={setSource}/>
+          <PostFormBody
+            register={register('contents')}
+            source={source}
+            setSource={setSource}
+          />
         </div>
         <article className="w-full pt-5">
           <Markdown
@@ -87,7 +89,7 @@ const OutputsCreatePage = () => {
           </Markdown>
         </article>
       </div>
-      <CreateFooter length={source.length}/>
+      <CreateFooter length={source.length} />
     </form>
   );
 };

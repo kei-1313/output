@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
-import TagForm from '../TagForm/TagForm'
+import TagForm from '../TagForm/TagForm';
 
 const TagSettings = () => {
   const [isTagModalShow, setIsTagModalShow] = useState(false);
-   //タグモーダルの開閉
-   const handleShowTagModal = () => {
+  //タグモーダルの開閉
+  const handleShowTagModal = () => {
     setIsTagModalShow(!isTagModalShow);
   };
   return (
@@ -20,13 +20,9 @@ const TagSettings = () => {
           <span className="text-sm text-slate-500">#タグ</span>
         )}
       </div>
-      {isTagModalShow ? (
-        <TagForm/>
-      ) : (
-        <></>
-      )}
+      {isTagModalShow ? <TagForm /> : <></>}
     </div>
-  )
-}
+  );
+};
 
-export default TagSettings
+export default TagSettings;

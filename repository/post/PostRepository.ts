@@ -21,17 +21,22 @@ export const createPostRepository = () => {
     findPostById: async (postId: string) => {
       return await prisma.post.findUnique({
         where: {
-          id: postId
+          id: postId,
         },
         include: {
           User: true,
           PostFormatBases: true,
           CategoryRelations: true,
           Likes: true,
-        }
-      })
+        },
+      });
     },
-    savePostByUser: async ({userId, title, thumbnail, contents} : savePostByUserProps) => {
+    savePostByUser: async ({
+      userId,
+      title,
+      thumbnail,
+      contents,
+    }: savePostByUserProps) => {
       return await prisma.post.create({
         data: {
           userId,
@@ -48,7 +53,6 @@ export const createPostRepository = () => {
           },
         },
       });
-    }
-
+    },
   };
 };

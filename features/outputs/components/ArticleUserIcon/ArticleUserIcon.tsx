@@ -10,15 +10,24 @@ interface ArticleUserProps {
   height: number;
 }
 
-const ArticleUserIcon = ({href, src, username, width, height}: ArticleUserProps) => {
+const ArticleUserIcon = ({
+  href,
+  src,
+  username,
+  width,
+  height,
+}: ArticleUserProps) => {
   return (
     <div className="flex items-center gap-3">
-      <Avatar href={href} src={src} width={width} height={height} alt={username}/>
+      <Avatar
+        href={href}
+        src={src}
+        width={width}
+        height={height}
+        alt={username}
+      />
       <div>
-        <Link
-          className="text-base leading-normal sm:text-lg"
-          href={href}
-        >
+        <Link className="text-base leading-normal sm:text-lg" href={href}>
           {username}
         </Link>
       </div>

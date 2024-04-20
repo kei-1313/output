@@ -4,7 +4,7 @@ interface createPostByUserProps {
     contents: string;
     thumbnail: string;
     userId: string;
-  }
+  };
 }
 
 export const createPostService = (postRepository: any) => {
@@ -12,11 +12,11 @@ export const createPostService = (postRepository: any) => {
     getPostAll: async () => {
       return await postRepository.findPostAll();
     },
-    getPostById: async (postId:string) => {
+    getPostById: async (postId: string) => {
       return await postRepository.findPostById(postId);
     },
     createPostByUser: async (body: createPostByUserProps) => {
-      return await postRepository.savePostByUser({...body});
-    }
+      return await postRepository.savePostByUser({ ...body });
+    },
   };
 };

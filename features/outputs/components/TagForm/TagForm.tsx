@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 interface Tag {
   id: number;
@@ -31,8 +31,8 @@ const TagForm = () => {
     setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
   };
 
-   //以前追加したタグを追加する
-   const handleClickLastTag = (event: React.MouseEvent<HTMLButtonElement>) => {
+  //以前追加したタグを追加する
+  const handleClickLastTag = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const addId = tags.length + 1;
     const newTag = {
@@ -94,7 +94,7 @@ const TagForm = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TagForm
+export default TagForm;

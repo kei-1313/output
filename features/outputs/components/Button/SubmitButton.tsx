@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const SubmitButton = () => {
   return (
@@ -8,7 +8,7 @@ const SubmitButton = () => {
     >
       保存
     </button>
-  )
-}
+  );
+};
 
-export default SubmitButton
+export default SubmitButton;
