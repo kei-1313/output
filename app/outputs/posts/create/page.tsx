@@ -11,6 +11,7 @@ import ArticleLength from '@/features/outputs/components/ArticleLength/ArticleLe
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import CreateFooter from '@/features/outputs/components/Footer/CreateFooter';
 
 interface Tag {
   id: number;
@@ -229,14 +230,7 @@ const OutputsCreatePage = () => {
           </Markdown>
         </article>
       </div>
-      {/* create page footer */}
-      <div className="fixed bottom-10 left-0 flex w-full justify-between px-8">
-        <div></div>
-        <div className="flex gap-3">
-          <div></div>
-          <ArticleLength articleLength={source.length} />
-        </div>
-      </div>
+      <CreateFooter length={source.length}/>
     </form>
   );
 };

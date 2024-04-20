@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 
-//すべての投稿を取得
-
 //新規投稿を作成
 export async function POST(request: Request) {
   const body = await request.json();

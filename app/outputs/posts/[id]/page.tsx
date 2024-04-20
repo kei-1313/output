@@ -5,6 +5,7 @@ import ArticleDate from "@/features/outputs/components/ArticleDate/ArticleDate"
 import ArticleHeader from "@/features/outputs/components/ArticleHeader/ArticleHeader"
 import ArticleUserIcon from "@/features/outputs/components/ArticleUserIcon/ArticleUserIcon"
 import ArticleUserLinkHome from "@/features/outputs/components/ArticleUserLinkHome/ArticleUserLinkHome"
+import ArticleFooter from "@/features/outputs/components/Footer/ArticleFooter"
 import ArticleTitle from "@/features/outputs/components/Title/ArticleTitle"
 
 
@@ -36,6 +37,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleUserLinkHome username={post.User.name} href={"/settings"}/>
         </div>
       </div>
+      <ArticleFooter/>
     </article>
   )
 }

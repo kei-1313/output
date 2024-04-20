@@ -1,7 +1,6 @@
-import React from 'react'
-import LoginUserInfo from '../LoginUserInfo/LoginUserInfo'
+import LoginUserInfo from "@/features/utils/LoginUserInfo/LoginUserInfo"
 
-const Footer = () => {
+const ArticleFooter = () => {
   return (
     <footer className="bg-footer pt-14 pb-20 max-md:pt-6">
       <div className="mx-auto w-full px-6 max-w-screen-lg flex">
@@ -11,4 +10,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default ArticleFooter
