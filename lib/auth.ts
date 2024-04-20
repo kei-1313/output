@@ -1,61 +1,83 @@
-import prisma from '@/lib/db';
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { User } from '@prisma/client';
+// import bcrypt from 'bcrypt';
 import NextAuth from 'next-auth';
-
 import Credentials from 'next-auth/providers/credentials';
-import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
+import { z } from 'zod';
+import { authConfig } from '../auth.config';
+import prisma from './db';
 
-import bcrypt from 'bcrypt';
-
-type User = {
-  id: string;
-  name: string;
-  profile: string;
-  email: string | null;
-  hashedpassword: string | null;
-};
-
-async function getUser(email: string): Promise<User | null | undefined> {
+async function getUser(email: string): Promise<User | null> {
   try {
-    return await prisma.user.findUnique({
+    console.log('Fetching User');
+
+    const user = await prisma.user.findUnique({
       where: {
         email,
       },
     });
+    return user;
   } catch (error) {
-    console.error(error);
-    throw new Error('ユーザーが見つかりませんでした。');
+    console.error('Failed to fetch User:', error);
+    throw new Error('Failed to fetch User');
   }
 }
 
-const authOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID ?? '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    }),
     Credentials({
+      id: 'credentials',
+      name: 'Credentials',
+      credentials: {
+        email: {
+          label: 'Email',
+          type: 'email',
+        },
+        password: {
+          label: 'Password',
+          type: 'password',
+        },
+      },
+      /**
+       * @param credentials ログインフォームから送信されたデータ
+       * @returns User | null
+       * @description 認証時に呼び出される関数
+       */
       async authorize(credentials) {
-        const user = await getUser(credentials.email);
-        if (!user) return null;
+        /**
+         * ログインフォームから送信されたデータを検証
+         * successプロパティとdataプロパティを持つオブジェクト
+         */
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Email and password required');
+        }
 
-        const passwordsMatch = await bcrypt.compare(
-          credentials.password,
-          user.hashedpassword,
-        );
+        const parsedCredentials = z
+          .object({ email: z.string().email(), password: z.string().min(8) })
+          .safeParse(credentials);
 
-        if (passwordsMatch) return user;
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          const user = await getUser(email);
 
+          // hashedpasswordが存在しない場合もnullを返す
+          if (!user || !user.hashedpassword) return null;
+
+          const bcrypt = await require('bcrypt');
+
+          const passwordsMatch = await bcrypt.compare(
+            password,
+            user.hashedpassword,
+          );
+
+          if (passwordsMatch) return user;
+        }
+
+        console.log('Invalid credentials');
         return null;
       },
     }),
   ],
-};
-
-export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
+});
