@@ -44,7 +44,7 @@ const TagForm = () => {
   };
 
   return (
-    <div className="absolute right-0 top-9 w-72 rounded-t-xl border border-slate-300/50 text-sm leading-normal">
+    <div className="absolute left-[-89px] top-9 w-72 rounded-t-xl border border-slate-300/50 text-sm leading-normal">
       <div className="flex flex-wrap gap-2 p-3">
         {tags?.map((tag, index) => (
           <div

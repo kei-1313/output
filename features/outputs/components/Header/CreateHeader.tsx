@@ -3,6 +3,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import TagSettings from '../TagSettings/TagSettings';
 import Link from 'next/link';
 import SubmitButton from '../Button/SubmitButton';
+import PreviewButton from '../Button/PreviewButton';
 
 export const CreateHeader = () => {
   return (
@@ -24,7 +25,10 @@ export const CreateHeader = () => {
           <SubmitButton />
         </div>
       </div>
-      <TagSettings />
+      <div className="flex-1 flex gap-8 items-center justify-end mr-4">
+        <TagSettings />
+        <PreviewButton/>
+      </div>
     </div>
   );
 };
