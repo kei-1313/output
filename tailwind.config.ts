@@ -13,7 +13,7 @@ const config: Config = {
         card: '92px calc(100% - 104px)',
       },
       colors: {
-        'footer': '#f7fafc',
+        footer: '#f7fafc',
       },
     },
   },

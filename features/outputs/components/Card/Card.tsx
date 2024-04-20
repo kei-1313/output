@@ -11,7 +11,6 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ post }) => {
-
   return (
     <li className="grid grid-cols-card gap-3" key={post.id}>
       <Link

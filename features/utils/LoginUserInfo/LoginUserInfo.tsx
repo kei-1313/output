@@ -1,5 +1,5 @@
-import React from 'react'
-import Avatar from '../Avatar/Avatar'
+import React from 'react';
+import Avatar from '../Avatar/Avatar';
 import Link from 'next/link';
 
 interface LoginUserInfoProps {
@@ -10,16 +10,25 @@ interface LoginUserInfoProps {
   height: number;
 }
 
-const LoginUserInfo = ({href, src, username, width, height}: LoginUserInfoProps) => {
+const LoginUserInfo = ({
+  href,
+  src,
+  username,
+  width,
+  height,
+}: LoginUserInfoProps) => {
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
-        <Avatar href={href} src={src} width={width} height={height} alt={username}/>
+        <Avatar
+          href={href}
+          src={src}
+          width={width}
+          height={height}
+          alt={username}
+        />
         <div>
-          <Link
-            className="text-base leading-normal"
-            href={href}
-          >
+          <Link className="text-base leading-normal" href={href}>
             {username}
           </Link>
         </div>
@@ -28,7 +37,7 @@ const LoginUserInfo = ({href, src, username, width, height}: LoginUserInfoProps)
         <button className="text-base">ログアウト</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginUserInfo
+export default LoginUserInfo;

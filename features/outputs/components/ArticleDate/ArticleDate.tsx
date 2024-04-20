@@ -10,15 +10,28 @@ interface ArticleDateProps {
   height: number;
 }
 
-const ArticleDate = ({createAt, href, src, username, width, height}: ArticleDateProps) => {
+const ArticleDate = ({
+  createAt,
+  href,
+  src,
+  username,
+  width,
+  height,
+}: ArticleDateProps) => {
   return (
     <div className="flex items-center gap-3">
-      <ArticleUserIcon href={href} src={src} width={width} height={height} username={username} />
+      <ArticleUserIcon
+        href={href}
+        src={src}
+        width={width}
+        height={height}
+        username={username}
+      />
       <div>
         <time className="text-gray-700">{formatPostDate(createAt)}</time>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ArticleDate
+export default ArticleDate;
