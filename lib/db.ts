@@ -1,6 +1,6 @@
 import { createClient } from '@libsql/client';
 import { PrismaLibSQL } from '@prisma/adapter-libsql';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 
 type ClientOptions = {
   url: string;
@@ -32,3 +32,18 @@ export default prisma;
 // 開発モードだとホットリロードでPrisma Clientが再インスタンス化されるので
 // グローバル変数に保存しておく
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
+
+// ユーザー情報を取得
+export async function getUser(email: string): Promise<User | null> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Failed to fetch User:', error);
+    throw new Error('Failed to fetch User');
+  }
+}
