@@ -1,3 +1,5 @@
+"use client"
+
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface PostFormBodyProps {
@@ -16,6 +18,7 @@ const PostFormBody = ({ register, source, setSource }: PostFormBodyProps) => {
       onChange={(e) => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
+        localStorage.setItem("ArticleContent", e.target.value);
         setSource(e.target.value);
       }}
       autoFocus

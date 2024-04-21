@@ -1,11 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeSanitize from 'rehype-sanitize';
-import rehypeExternalLinks from 'rehype-external-links';
+import { useEffect, useState } from 'react';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -13,10 +8,31 @@ import CreateFooter from '@/features/outputs/components/Footer/CreateFooter';
 import { CreateHeader } from '@/features/outputs/components/Header/CreateHeader';
 import PostFormTitle from '@/features/outputs/components/PostForm/Title/PostFormTitle';
 import PostFormBody from '@/features/outputs/components/PostForm/Body/PostFormBody';
+import PrevieContent from '@/features/outputs/components/PreviewContent/PrevieContent';
 
 const OutputsCreatePage = () => {
   const router = useRouter();
-  const [source, setSource] = useState('');
+
+  const [title, setTitle] = useState("");
+  const [source, setSource] = useState("");
+
+  const [local, setLocal] = useState("")
+
+  const [isPreview, setPreview] = useState(false)
+
+  // localstorageに保存されている場合、初期表示させる
+  useEffect(() => {
+    const ArticleTitle = localStorage.getItem("ArticleTitle");
+    const ArticleContent = localStorage.getItem("ArticleContent");
+    if (ArticleTitle) {
+      setTitle(ArticleTitle);
+    }
+
+    if(ArticleContent) {
+      setSource(ArticleContent)
+    }
+    console.log("初期表示");
+  }, []);
 
   //投稿をPOSTする
   const {
@@ -62,32 +78,44 @@ const OutputsCreatePage = () => {
     }
   };
 
+  //プレビューの表示、非表示
+  const handlePreviewClick = () => {
+    setPreview(!isPreview)
+  }
+
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
-      <CreateHeader />
+      <input
+        type="text"
+        value={local}
+        onChange={(e) => {
+          localStorage.setItem("local", e.target.value);
+          localStorage.removeItem("Value")
+          setLocal(e.target.value);
+        }}
+      />
+      <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
       <div className="mx-auto max-w-[580px] px-6 py-24">
-        <div className="mb-8">
-          <PostFormTitle register={register('title')} />
-        </div>
-        <div>
-          <PostFormBody
-            register={register('contents')}
-            source={source}
-            setSource={setSource}
-          />
-        </div>
-        <article className="w-full pt-5">
-          <Markdown
-            className="prose min-w-full"
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[
-              rehypeSanitize,
-              [rehypeExternalLinks, { content: { type: 'text', value: '🔗' } }],
-            ]}
-          >
-            {source}
-          </Markdown>
-        </article>
+      {isPreview? (
+        <PrevieContent source={source} title={title}/>
+        ):(
+        <>
+          <div className="mb-8">
+            <PostFormTitle
+              register={register('title')}
+              title={title}
+              setTitle={setTitle}
+            />
+          </div>
+          <div>
+            <PostFormBody
+              register={register('contents')}
+              source={source}
+              setSource={setSource}
+            />
+          </div>
+        </>
+        )}
       </div>
       <CreateFooter length={source.length} />
     </form>

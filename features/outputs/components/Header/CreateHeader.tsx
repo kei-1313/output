@@ -5,7 +5,12 @@ import Link from 'next/link';
 import SubmitButton from '../Button/SubmitButton';
 import PreviewButton from '../Button/PreviewButton';
 
-export const CreateHeader = () => {
+interface CreateHeaderProps {
+  isPreview: boolean;
+  handlePreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+}
+
+export const CreateHeader = ({handlePreviewClick, isPreview}: CreateHeaderProps) => {
   return (
     <div className="flex h-14 items-center justify-between gap-2 px-4">
       <div className="lg:flex-1">
@@ -27,7 +32,7 @@ export const CreateHeader = () => {
       </div>
       <div className="flex-1 flex gap-8 items-center justify-end mr-4">
         <TagSettings />
-        <PreviewButton/>
+        <PreviewButton handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
       </div>
     </div>
   );
