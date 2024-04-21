@@ -1,6 +1,8 @@
 import type { NextAuthConfig } from 'next-auth';
 import credentials from 'next-auth/providers/credentials';
-import { getUser } from './lib/db';
+import Github from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+import { getUserByEmail } from './lib/db';
 import { LoginSchema } from './schemas';
 
 export const authConfig = {
@@ -8,6 +10,14 @@ export const authConfig = {
     signIn: '/login',
   },
   providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
+    Github({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
+    }),
     credentials({
       id: 'credentials',
       name: 'Credentials',
@@ -36,7 +46,7 @@ export const authConfig = {
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
 
-          const user = await getUser(email);
+          const user = await getUserByEmail(email);
           if (!user || !user.hashedpassword) return null;
 
           const bcrypt = require('bcrypt');

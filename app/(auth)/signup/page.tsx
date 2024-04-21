@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
 import PageTitle from '@/features/auth/components/PageTitle/PageTitle';
 import SignUpForm from '@/features/auth/components/signup-form';
+import { SocialButtons } from '@/features/auth/components/social-buttons';
 
 import Link from 'next/link';
 
@@ -11,10 +11,7 @@ const SignupPage = () => {
       <div className="mt-4">
         <SignUpForm />
       </div>
-      <div className="mt-8 flex items-center justify-center gap-10">
-        <Button className="min-w-36">Github</Button>
-        <Button className="min-w-36">Google</Button>
-      </div>
+      <SocialButtons />
       <div className="mt-8 flex justify-end">
         <Link className="text-right text-sm" href="/login">
           アカウントを既にお持ちの方はこちら

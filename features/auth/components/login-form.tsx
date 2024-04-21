@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoginSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -22,6 +23,12 @@ import { FormError } from './form-error';
 const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
+
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'このメールアドレスは既に別のプロバイダーで登録されています。'
+      : '';
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -78,7 +85,7 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <FormError message={error} />
+        <FormError message={error || urlError} />
         <div className="grid place-items-center">
           <Button type="submit" disabled={isPending}>
             ログイン

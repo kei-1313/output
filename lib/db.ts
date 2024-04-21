@@ -33,12 +33,27 @@ export default prisma;
 // グローバル変数に保存しておく
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
 
-// ユーザー情報を取得
-export async function getUser(email: string): Promise<User | null> {
+// ユーザー情報をメールアドレスで取得
+export async function getUserByEmail(email: string): Promise<User | null> {
   try {
     const user = await prisma.user.findUnique({
       where: {
         email,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Failed to fetch User:', error);
+    throw new Error('Failed to fetch User');
+  }
+}
+
+// ユーザー情報をIDで取得
+export async function getUserById(id: string): Promise<User | null> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
       },
     });
     return user;
