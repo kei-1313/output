@@ -16,8 +16,6 @@ const OutputsCreatePage = () => {
   const [title, setTitle] = useState("");
   const [source, setSource] = useState("");
 
-  const [local, setLocal] = useState("")
-
   const [isPreview, setPreview] = useState(false)
 
   // localstorageに保存されている場合、初期表示させる
@@ -27,11 +25,10 @@ const OutputsCreatePage = () => {
     if (ArticleTitle) {
       setTitle(ArticleTitle);
     }
-
     if(ArticleContent) {
       setSource(ArticleContent)
     }
-    console.log("初期表示");
+    console.log("レンダリング");
   }, []);
 
   //投稿をPOSTする
@@ -85,15 +82,6 @@ const OutputsCreatePage = () => {
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
-      <input
-        type="text"
-        value={local}
-        onChange={(e) => {
-          localStorage.setItem("local", e.target.value);
-          localStorage.removeItem("Value")
-          setLocal(e.target.value);
-        }}
-      />
       <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
       <div className="mx-auto max-w-[580px] px-6 py-24">
       {isPreview? (

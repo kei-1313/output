@@ -12,7 +12,7 @@ const PostFormTitle = ({ register, title, setTitle }: PostFormTitleProps) => {
   return (
     <textarea
       {...register}
-      className="w-full resize-none bg-transparent text-xl leading-relaxed outline-0"
+      className="w-full resize-none bg-transparent text-xl min-h-[70px]  leading-relaxed outline-0"
       value={title}
       onChange={(e) => {
         e.target.style.height = 'auto';

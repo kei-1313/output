@@ -12,7 +12,7 @@ const PostFormBody = ({ register, source, setSource }: PostFormBodyProps) => {
   return (
     <textarea
       {...register}
-      className="w-full resize-none bg-transparent leading-relaxed outline-0"
+      className="w-full resize-none bg-transparent min-h-[500px] leading-relaxed outline-0"
       placeholder="本文を書く"
       value={source}
       onChange={(e) => {
