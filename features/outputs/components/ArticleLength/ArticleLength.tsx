@@ -1,16 +1,15 @@
-"use client"
+'use client';
 
 interface ArticleLengthProps {
-  articleLength: number 
+  articleLength: number;
 }
 
-const ArticleLength:React.FC<ArticleLengthProps> = ({articleLength}) => { 
-	return (
-		<div className="w-[40px] h-[40px] rounded-full flex justify-center items-center border border-slate-500">
-      <span className="block text-sm text-slate-500">{ articleLength }</span>
+const ArticleLength: React.FC<ArticleLengthProps> = ({ articleLength }) => {
+  return (
+    <div className="flex h-[40px] w-[40px] items-center justify-center rounded-full border border-slate-500">
+      <span className="block text-sm text-slate-500">{articleLength}</span>
     </div>
-	)
-}
+  );
+};
 
-export default ArticleLength
-
+export default ArticleLength;
