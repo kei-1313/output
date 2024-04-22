@@ -53,6 +53,6 @@ export const createPostRepository = () => {
           },
         },
       });
-    },
+    }
   };
 };

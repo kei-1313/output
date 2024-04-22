@@ -1,13 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-interface Tag {
-  id: number;
-  text: string;
+interface Tags {
+  label: string;
+  name: string;
+  icon: string;
 }
-const TagForm = () => {
-  const [tags, setTags] = useState<Tag[]>([]);
+interface TagFormProps {
+  tags: Tags[];
+  setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
+}
+
+const TagForm = ({tags, setTags}: TagFormProps) => {
+  // const [tags, setTags] = useState<Tag[]>([]);
   const [tagText, setTagText] = useState('');
 
   //入力値をタグにする
@@ -15,10 +22,10 @@ const TagForm = () => {
     //入力値があり、Enterが押された場合
     if (event.key === 'Enter' && tagText.trim() !== '') {
       event.preventDefault();
-      const addId = tags.length + 1;
       const newTag = {
-        id: addId,
-        text: tagText.trim(),
+        label: uuidv4(),
+        name: tagText.trim(),
+        icon: ""
       };
 
       setTags((prevTags) => [...prevTags, newTag]);
@@ -27,17 +34,17 @@ const TagForm = () => {
   };
 
   //入力したタグを削除する
-  const handleDeleteTag = (id: number) => {
-    setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+  const handleDeleteTag = (id: string) => {
+    setTags((prevTags) => prevTags.filter((tag) => tag.label !== id));
   };
 
   //以前追加したタグを追加する
   const handleClickLastTag = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const addId = tags.length + 1;
     const newTag = {
-      id: addId,
-      text: event.currentTarget.innerHTML.trim(),
+      label: uuidv4(),
+      name: event.currentTarget.innerHTML.trim(),
+      icon: ""
     };
 
     setTags((prevTags) => [...prevTags, newTag]);
@@ -51,9 +58,9 @@ const TagForm = () => {
             className="flex items-center gap-1 rounded-full border  border-slate-300/50 px-3 py-1"
             key={index}
           >
-            <span>{tag.text}</span>
+            <span>{tag.name}</span>
             <span
-              onClick={() => handleDeleteTag(tag.id)}
+              onClick={() => handleDeleteTag(tag.label)}
               className="cursor-pointer text-slate-300 transition duration-300 hover:text-slate-400"
             >
               ✗

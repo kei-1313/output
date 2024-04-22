@@ -2,7 +2,18 @@
 import { useState } from 'react';
 import TagForm from '../TagForm/TagForm';
 
-const TagSettings = () => {
+interface Tags {
+  label: string;
+  name: string;
+  icon: string;
+}
+
+interface TagSettingsProps {
+  tags: Tags[];
+  setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
+}
+
+const TagSettings = ({tags, setTags}: TagSettingsProps) => {
   const [isTagModalShow, setIsTagModalShow] = useState(false);
   //タグモーダルの開閉
   const handleShowTagModal = () => {
@@ -17,10 +28,12 @@ const TagSettings = () => {
         {isTagModalShow ? (
           <span className="text-sm text-slate-500">閉じる</span>
         ) : (
-          <span className="text-sm text-slate-500">#タグ</span>
+          <span className="text-sm text-slate-500">
+            #タグ<span className="text-sm text-slate-500 inline-block ml-1">{tags.length > 0? tags.length: ""}</span>
+          </span>
         )}
       </button>
-      {isTagModalShow ? <TagForm /> : <></>}
+      {isTagModalShow ? <TagForm tags={tags} setTags={setTags}/> : <></>}
     </div>
   );
 };
