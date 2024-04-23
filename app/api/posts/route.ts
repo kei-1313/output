@@ -61,12 +61,8 @@ export async function POST(request: Request) {
   }));
   const categoryIds = await Promise.all(categories.map(async category => await categoryService.createCategoryByUser(category)))
 
-  console.log(categoryIds, "カテゴリーID");
-
   //投稿とカテゴリーの中間テーブルに各ID保存
   const categoryRelations = await Promise.all(categoryIds.map(async (categoryId:Category) => await categoryRelationService.createCategoryRelationByPost(post.id, categoryId.id)))
-
-  console.log(categoryRelations, "中間テーブル");
 
 
   return NextResponse.json(post);
