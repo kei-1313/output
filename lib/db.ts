@@ -62,3 +62,61 @@ export async function getUserById(id: string): Promise<User | null> {
     throw new Error('Failed to fetch User');
   }
 }
+
+// トークンがデータベースに存在するか確認 (検証用)
+export const getVerificationTokenByToken = async (token: string) => {
+  try {
+    const verificationToken = await prisma.verificationToken.findUnique({
+      where: {
+        token,
+      },
+    });
+    return verificationToken;
+  } catch {
+    return null;
+  }
+};
+
+// トークンに紐づくメールアドレスを取得 (検証用)
+export const getVerificationTokenByEmail = async (email: string) => {
+  try {
+    const verificationToken = await prisma.verificationToken.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return verificationToken;
+  } catch {
+    return null;
+  }
+};
+
+// トークンがデータベースに存在するか確認 (パスワードリセット用)
+export const getPasswordResetTokenByToken = async (token: string) => {
+  try {
+    const PasswordResetToken = await prisma.passwordResetToken.findUnique({
+      where: {
+        token,
+      },
+    });
+    return PasswordResetToken;
+  } catch {
+    return null;
+  }
+};
+
+// トークンに紐づくメールアドレスを取得 (パスワードリセット用)
+export const getPasswordResetTokenByEmail = async (email: string) => {
+  try {
+    const PasswordResetToken = await prisma.passwordResetToken.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    return PasswordResetToken;
+  } catch {
+    return null;
+  }
+};
