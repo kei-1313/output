@@ -1,6 +1,8 @@
 'use server';
 
 import prisma from '@/lib/db';
+import { sendVerificationEmail } from '@/lib/mail';
+import { generateVerificationToken } from '@/lib/token';
 import { handleError } from '@/lib/utils';
 import { SignUpSchema } from '@/schemas';
 import { z } from 'zod';
@@ -50,9 +52,17 @@ export async function signUp(values: z.infer<typeof SignUpSchema>) {
       },
     });
 
+    const verificationToken = await generateVerificationToken(email);
+    console.log(verificationToken);
+
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token,
+    );
+
     return {
       isSuccess: true,
-      message: 'ユーザー登録が完了しました',
+      message: '確認メールを送信しました',
     };
   } catch (error) {
     handleError(error);
