@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { UseFormRegisterReturn } from 'react-hook-form';
 
@@ -12,12 +12,12 @@ const PostFormTitle = ({ register, title, setTitle }: PostFormTitleProps) => {
   return (
     <textarea
       {...register}
-      className="w-full resize-none bg-transparent text-xl min-h-[70px]  leading-relaxed outline-0"
+      className="min-h-[70px] w-full resize-none bg-transparent text-xl  leading-relaxed outline-0"
       value={title}
       onChange={(e) => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
-        localStorage.setItem("ArticleTitle", e.target.value);
+        localStorage.setItem('ArticleTitle', e.target.value);
         setTitle(e.target.value);
       }}
       placeholder="タイトル"

@@ -5,30 +5,41 @@ import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import CreateFooter from '@/features/outputs/components/Footer/CreateFooter';
-import { CreateHeader } from '@/features/outputs/components/Header/CreateHeader';
 import PostFormTitle from '@/features/outputs/components/PostForm/Title/PostFormTitle';
 import PostFormBody from '@/features/outputs/components/PostForm/Body/PostFormBody';
 import PrevieContent from '@/features/outputs/components/PreviewContent/PrevieContent';
+import Link from 'next/link';
+import SubmitButton from '@/features/outputs/components/Button/SubmitButton';
+import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
+import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
+import { FaArrowLeft } from 'react-icons/fa';
+
+interface Tags {
+  label: string;
+  name: string;
+  icon: string;
+}
 
 const OutputsCreatePage = () => {
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [source, setSource] = useState("");
+  const [title, setTitle] = useState('');
+  const [source, setSource] = useState('');
 
-  const [isPreview, setPreview] = useState(false)
+  const [isPreview, setPreview] = useState(false);
+
+  const [tags, setTags] = useState<Tags[]>([]);
 
   // localstorageに保存されている場合、初期表示させる
   useEffect(() => {
-    const ArticleTitle = localStorage.getItem("ArticleTitle");
-    const ArticleContent = localStorage.getItem("ArticleContent");
+    const ArticleTitle = localStorage.getItem('ArticleTitle');
+    const ArticleContent = localStorage.getItem('ArticleContent');
     if (ArticleTitle) {
       setTitle(ArticleTitle);
     }
-    if(ArticleContent) {
-      setSource(ArticleContent)
+    if (ArticleContent) {
+      setSource(ArticleContent);
     }
-    console.log("レンダリング");
   }, []);
 
   //投稿をPOSTする
@@ -39,8 +50,8 @@ const OutputsCreatePage = () => {
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
-      title: '',
-      contents: '',
+      title: title,
+      contents: source,
     },
   });
 
@@ -56,8 +67,8 @@ const OutputsCreatePage = () => {
         contents: data.contents,
         thumbnail: 'thumbnail',
         userId: 'cluf8ddnh0001fwhr0nwcwso0',
+        tags: tags,
       };
-      console.log(newPost);
 
       const res = await fetch('/api/posts/', {
         method: 'POST',
@@ -77,32 +88,58 @@ const OutputsCreatePage = () => {
 
   //プレビューの表示、非表示
   const handlePreviewClick = () => {
-    setPreview(!isPreview)
-  }
+    setPreview(!isPreview);
+  };
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
-      <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
+      <div className="flex h-14 items-center justify-between gap-2 px-4">
+        <div className="lg:flex-1">
+          <Link
+            href={'/outputs'}
+            className="flex h-[36px] w-[36px] items-center justify-center rounded-full transition duration-300 hover:bg-sky-50"
+          >
+            <FaArrowLeft
+              width={20}
+              height={20}
+              className="mx-auto text-gray-400"
+            />
+          </Link>
+        </div>
+        <div className="flex-1 lg:justify-center">
+          <div className="lg:text-center">
+            <SubmitButton />
+          </div>
+        </div>
+        <div className="mr-4 flex flex-1 items-center justify-end gap-8">
+          <TagSettings tags={tags} setTags={setTags} />
+          <PreviewButton
+            handlePreviewClick={handlePreviewClick}
+            isPreview={isPreview}
+          />
+        </div>
+      </div>
+      {/* <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/> */}
       <div className="mx-auto max-w-[580px] px-6 py-24">
-      {isPreview? (
-        <PrevieContent source={source} title={title}/>
-        ):(
-        <>
-          <div className="mb-8">
-            <PostFormTitle
-              register={register('title')}
-              title={title}
-              setTitle={setTitle}
-            />
-          </div>
-          <div>
-            <PostFormBody
-              register={register('contents')}
-              source={source}
-              setSource={setSource}
-            />
-          </div>
-        </>
+        {isPreview ? (
+          <PrevieContent source={source} title={title} />
+        ) : (
+          <>
+            <div className="mb-8">
+              <PostFormTitle
+                register={register('title')}
+                title={title}
+                setTitle={setTitle}
+              />
+            </div>
+            <div>
+              <PostFormBody
+                register={register('contents')}
+                source={source}
+                setSource={setSource}
+              />
+            </div>
+          </>
         )}
       </div>
       <CreateFooter length={source.length} />

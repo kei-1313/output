@@ -1,4 +1,4 @@
-interface createPostByUserProps {
+interface CreatePostByUserProps {
   body: {
     title: string;
     contents: string;
@@ -15,7 +15,7 @@ export const createPostService = (postRepository: any) => {
     getPostById: async (postId: string) => {
       return await postRepository.findPostById(postId);
     },
-    createPostByUser: async (body: createPostByUserProps) => {
+    createPostByUser: async (body: CreatePostByUserProps) => {
       return await postRepository.savePostByUser({ ...body });
     },
   };

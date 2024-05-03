@@ -10,7 +10,7 @@ import ArticleTitle from '@/features/outputs/components/Title/ArticleTitle';
 
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
-  console.log(post);
+  console.log(post.CategoryRelations);
 
   return (
     <article>
@@ -33,7 +33,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleContent content={post.PostFormatBases[0].contents} />
         </div>
         <div className="mb-20">
-          <ArticleCategoryList />
+          <ArticleCategoryList categoryList={post.CategoryRelations} />
         </div>
         <div className="mb-20">
           <ArticleUserIcon
