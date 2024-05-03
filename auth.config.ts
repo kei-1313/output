@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
-import credentials from 'next-auth/providers/credentials';
+import Credentials from 'next-auth/providers/credentials';
 import Github from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 import { getUserByEmail } from './lib/db';
@@ -18,7 +18,7 @@ export const authConfig = {
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
     }),
-    credentials({
+    Credentials({
       id: 'credentials',
       name: 'Credentials',
       credentials: {
