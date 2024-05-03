@@ -13,7 +13,7 @@ interface Tags {
 }
 
 interface Category {
-  id: string
+  id: string;
 }
 
 //新規投稿を作成、カテゴリーの追加
@@ -28,42 +28,57 @@ export async function POST(request: Request) {
 
   // CategoryRelation
   const categoryRelationRepository = CreatecategoryRelationRepository();
-  const categoryRelationService = createCategoryRelationService(categoryRelationRepository)
+  const categoryRelationService = createCategoryRelationService(
+    categoryRelationRepository,
+  );
 
   const body = await request.json();
 
-  const {title, contents, thumbnail, userId, tags} = body
+  const { title, contents, thumbnail, userId, tags } = body;
 
   const postBody = {
     title,
     contents,
     thumbnail,
     userId,
-  }
+  };
 
   // 投稿を保存
   const post = await postService.createPostByUser(postBody);
 
   //カテゴリがない場合
-  if(tags.length === 0) {
+  if (tags.length === 0) {
     return NextResponse.json(post);
   }
 
   //カテゴリがある場合
   // creatManyでもいけそう
-  const categories = await Promise.all(tags.map(async (tag: Tags) => {
-    const newTag = await categoryService.getCategoryByName(tag.name);
-    if(newTag) {
-      return newTag
-    } else {
-      return tag
-    }
-  }));
-  const categoryIds = await Promise.all(categories.map(async category => await categoryService.createCategoryByUser(category)))
+  const categories = await Promise.all(
+    tags.map(async (tag: Tags) => {
+      const newTag = await categoryService.getCategoryByName(tag.name);
+      if (newTag) {
+        return newTag;
+      } else {
+        return tag;
+      }
+    }),
+  );
+  const categoryIds = await Promise.all(
+    categories.map(
+      async (category) => await categoryService.createCategoryByUser(category),
+    ),
+  );
 
   //投稿とカテゴリーの中間テーブルに各ID保存
-  const categoryRelations = await Promise.all(categoryIds.map(async (categoryId:Category) => await categoryRelationService.createCategoryRelationByPost(post.id, categoryId.id)))
-
+  const categoryRelations = await Promise.all(
+    categoryIds.map(
+      async (categoryId: Category) =>
+        await categoryRelationService.createCategoryRelationByPost(
+          post.id,
+          categoryId.id,
+        ),
+    ),
+  );
 
   return NextResponse.json(post);
 }

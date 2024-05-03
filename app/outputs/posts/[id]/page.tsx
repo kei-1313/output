@@ -33,7 +33,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleContent content={post.PostFormatBases[0].contents} />
         </div>
         <div className="mb-20">
-          <ArticleCategoryList categoryList={post.CategoryRelations}/>
+          <ArticleCategoryList categoryList={post.CategoryRelations} />
         </div>
         <div className="mb-20">
           <ArticleUserIcon

@@ -10,4 +10,3 @@ export interface CategoryRelation {
   categoryId: string;
   Category: Category;
 }
-

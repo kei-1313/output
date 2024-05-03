@@ -28,8 +28,8 @@ export const createPostRepository = () => {
           PostFormatBases: true,
           CategoryRelations: {
             include: {
-              Category: true
-            }
+              Category: true,
+            },
           },
           Likes: true,
         },
@@ -57,6 +57,6 @@ export const createPostRepository = () => {
           },
         },
       });
-    }
+    },
   };
 };

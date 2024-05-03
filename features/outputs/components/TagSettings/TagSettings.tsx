@@ -13,7 +13,7 @@ interface TagSettingsProps {
   setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
 }
 
-const TagSettings = ({tags, setTags}: TagSettingsProps) => {
+const TagSettings = ({ tags, setTags }: TagSettingsProps) => {
   const [isTagModalShow, setIsTagModalShow] = useState(false);
   //タグモーダルの開閉
   const handleShowTagModal = () => {
@@ -21,7 +21,8 @@ const TagSettings = ({tags, setTags}: TagSettingsProps) => {
   };
   return (
     <div className="relative flex items-center gap-2">
-      <button type="button"
+      <button
+        type="button"
         onClick={handleShowTagModal}
         className="cursor-pointer rounded-full px-3 py-1 transition duration-300 hover:bg-slate-300/50"
       >
@@ -29,11 +30,14 @@ const TagSettings = ({tags, setTags}: TagSettingsProps) => {
           <span className="text-sm text-slate-500">閉じる</span>
         ) : (
           <span className="text-sm text-slate-500">
-            #タグ<span className="text-sm text-slate-500 inline-block ml-1">{tags.length > 0? tags.length: ""}</span>
+            #タグ
+            <span className="ml-1 inline-block text-sm text-slate-500">
+              {tags.length > 0 ? tags.length : ''}
+            </span>
           </span>
         )}
       </button>
-      {isTagModalShow ? <TagForm tags={tags} setTags={setTags}/> : <></>}
+      {isTagModalShow ? <TagForm tags={tags} setTags={setTags} /> : <></>}
     </div>
   );
 };

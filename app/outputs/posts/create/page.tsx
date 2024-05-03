@@ -23,22 +23,22 @@ interface Tags {
 const OutputsCreatePage = () => {
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [source, setSource] = useState("");
+  const [title, setTitle] = useState('');
+  const [source, setSource] = useState('');
 
-  const [isPreview, setPreview] = useState(false)
+  const [isPreview, setPreview] = useState(false);
 
-  const [tags, setTags] = useState<Tags[]>([])
+  const [tags, setTags] = useState<Tags[]>([]);
 
   // localstorageに保存されている場合、初期表示させる
   useEffect(() => {
-    const ArticleTitle = localStorage.getItem("ArticleTitle");
-    const ArticleContent = localStorage.getItem("ArticleContent");
+    const ArticleTitle = localStorage.getItem('ArticleTitle');
+    const ArticleContent = localStorage.getItem('ArticleContent');
     if (ArticleTitle) {
       setTitle(ArticleTitle);
     }
-    if(ArticleContent) {
-      setSource(ArticleContent)
+    if (ArticleContent) {
+      setSource(ArticleContent);
     }
   }, []);
 
@@ -67,7 +67,7 @@ const OutputsCreatePage = () => {
         contents: data.contents,
         thumbnail: 'thumbnail',
         userId: 'cluf8ddnh0001fwhr0nwcwso0',
-        tags: tags
+        tags: tags,
       };
 
       const res = await fetch('/api/posts/', {
@@ -88,8 +88,8 @@ const OutputsCreatePage = () => {
 
   //プレビューの表示、非表示
   const handlePreviewClick = () => {
-    setPreview(!isPreview)
-  }
+    setPreview(!isPreview);
+  };
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
@@ -111,32 +111,35 @@ const OutputsCreatePage = () => {
             <SubmitButton />
           </div>
         </div>
-        <div className="flex-1 flex gap-8 items-center justify-end mr-4">
-          <TagSettings tags={tags} setTags={setTags}/>
-          <PreviewButton handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
+        <div className="mr-4 flex flex-1 items-center justify-end gap-8">
+          <TagSettings tags={tags} setTags={setTags} />
+          <PreviewButton
+            handlePreviewClick={handlePreviewClick}
+            isPreview={isPreview}
+          />
         </div>
       </div>
       {/* <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/> */}
       <div className="mx-auto max-w-[580px] px-6 py-24">
-      {isPreview? (
-        <PrevieContent source={source} title={title}/>
-        ):(
-        <>
-          <div className="mb-8">
-            <PostFormTitle
-              register={register('title')}
-              title={title}
-              setTitle={setTitle}
-            />
-          </div>
-          <div>
-            <PostFormBody
-              register={register('contents')}
-              source={source}
-              setSource={setSource}
-            />
-          </div>
-        </>
+        {isPreview ? (
+          <PrevieContent source={source} title={title} />
+        ) : (
+          <>
+            <div className="mb-8">
+              <PostFormTitle
+                register={register('title')}
+                title={title}
+                setTitle={setTitle}
+              />
+            </div>
+            <div>
+              <PostFormBody
+                register={register('contents')}
+                source={source}
+                setSource={setSource}
+              />
+            </div>
+          </>
         )}
       </div>
       <CreateFooter length={source.length} />

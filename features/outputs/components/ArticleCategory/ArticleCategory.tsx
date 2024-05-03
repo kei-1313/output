@@ -8,9 +8,7 @@ interface ArticleCategoryProps {
 const ArticleCategory = ({ categoryName }: ArticleCategoryProps) => {
   return (
     <li>
-      <span
-        className="border-gray-150 rounded-lg block border px-2.5 py-1.5 text-base text-gray-70"
-      >
+      <span className="border-gray-150 text-gray-70 block rounded-lg border px-2.5 py-1.5 text-base">
         {categoryName}
       </span>
     </li>

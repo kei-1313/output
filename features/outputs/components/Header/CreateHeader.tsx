@@ -7,10 +7,13 @@ import PreviewButton from '../Button/PreviewButton';
 
 interface CreateHeaderProps {
   isPreview: boolean;
-  handlePreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  handlePreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const CreateHeader = ({handlePreviewClick, isPreview}: CreateHeaderProps) => {
+export const CreateHeader = ({
+  handlePreviewClick,
+  isPreview,
+}: CreateHeaderProps) => {
   return (
     <div className="flex h-14 items-center justify-between gap-2 px-4">
       <div className="lg:flex-1">
@@ -30,9 +33,12 @@ export const CreateHeader = ({handlePreviewClick, isPreview}: CreateHeaderProps)
           <SubmitButton />
         </div>
       </div>
-      <div className="flex-1 flex gap-8 items-center justify-end mr-4">
+      <div className="mr-4 flex flex-1 items-center justify-end gap-8">
         <TagSettings />
-        <PreviewButton handlePreviewClick={handlePreviewClick} isPreview={isPreview}/>
+        <PreviewButton
+          handlePreviewClick={handlePreviewClick}
+          isPreview={isPreview}
+        />
       </div>
     </div>
   );

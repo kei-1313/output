@@ -17,6 +17,6 @@ export const createPostService = (postRepository: any) => {
     },
     createPostByUser: async (body: CreatePostByUserProps) => {
       return await postRepository.savePostByUser({ ...body });
-    }
+    },
   };
 };

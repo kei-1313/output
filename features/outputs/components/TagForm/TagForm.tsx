@@ -13,7 +13,7 @@ interface TagFormProps {
   setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
 }
 
-const TagForm = ({tags, setTags}: TagFormProps) => {
+const TagForm = ({ tags, setTags }: TagFormProps) => {
   // const [tags, setTags] = useState<Tag[]>([]);
   const [tagText, setTagText] = useState('');
 
@@ -25,7 +25,7 @@ const TagForm = ({tags, setTags}: TagFormProps) => {
       const newTag = {
         label: uuidv4(),
         name: tagText.trim(),
-        icon: ""
+        icon: '',
       };
 
       setTags((prevTags) => [...prevTags, newTag]);
@@ -44,7 +44,7 @@ const TagForm = ({tags, setTags}: TagFormProps) => {
     const newTag = {
       label: uuidv4(),
       name: event.currentTarget.innerHTML.trim(),
-      icon: ""
+      icon: '',
     };
 
     setTags((prevTags) => [...prevTags, newTag]);

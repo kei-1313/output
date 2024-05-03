@@ -1,31 +1,34 @@
-"use client";
+'use client';
 interface PreviewButtonProps {
   isPreview: boolean;
-  handlePreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  handlePreviewClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const PreviewButton = ({handlePreviewClick, isPreview}: PreviewButtonProps) => {
+const PreviewButton = ({
+  handlePreviewClick,
+  isPreview,
+}: PreviewButtonProps) => {
   return (
     <>
-      {isPreview? (
+      {isPreview ? (
         <button
           type="button"
           onClick={handlePreviewClick}
-          className="text-sm  text-slate-500 outline-none cursor-pointer rounded-full px-4 py-1.5 transition duration-300 bg-green-300/50"
+          className="cursor-pointer  rounded-full bg-green-300/50 px-4 py-1.5 text-sm text-slate-500 outline-none transition duration-300"
         >
           プレビュー中
         </button>
-      ):(
+      ) : (
         <button
           type="button"
           onClick={handlePreviewClick}
-          className="text-sm  text-slate-500 outline-none cursor-pointer rounded-full px-4 py-1.5 transition duration-300 bg-slate-300/50"
+          className="cursor-pointer  rounded-full bg-slate-300/50 px-4 py-1.5 text-sm text-slate-500 outline-none transition duration-300"
         >
           プレビュー
         </button>
       )}
     </>
-  )
-}
+  );
+};
 
-export default PreviewButton
+export default PreviewButton;

@@ -1,8 +1,15 @@
-
-export const createCategoryRelationService = (categoryRelationRepository: any) => {
+export const createCategoryRelationService = (
+  categoryRelationRepository: any,
+) => {
   return {
-    createCategoryRelationByPost: async(postId:string, categoryId:string) => {
-      return await categoryRelationRepository.saveCategoryRelationsByPost(postId, categoryId);
-    }
+    createCategoryRelationByPost: async (
+      postId: string,
+      categoryId: string,
+    ) => {
+      return await categoryRelationRepository.saveCategoryRelationsByPost(
+        postId,
+        categoryId,
+      );
+    },
   };
 };
