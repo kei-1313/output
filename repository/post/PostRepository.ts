@@ -26,7 +26,11 @@ export const createPostRepository = () => {
         include: {
           User: true,
           PostFormatBases: true,
-          CategoryRelations: true,
+          CategoryRelations: {
+            include: {
+              Category: true
+            }
+          },
           Likes: true,
         },
       });

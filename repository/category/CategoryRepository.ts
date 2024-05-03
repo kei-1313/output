@@ -8,10 +8,10 @@ interface saveCategoryByUser {
 
 export const createCategoryRepository = () => {
   return {
-    findCategoryIdAll: async() => {
+    findCategoryAll: async(postId:string) => {
       return await prisma.category.findMany({
-        select: {
-          id: true
+        where: {
+          id: postId
         }
       })
     },

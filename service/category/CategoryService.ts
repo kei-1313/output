@@ -1,3 +1,5 @@
+import { string } from "zod";
+
 interface createCategoryByUserProps {
   body: {
     label: string;
@@ -8,8 +10,8 @@ interface createCategoryByUserProps {
 
 export const createCategoryService = (categoryRepository: any) => {
   return {
-    getCategoryIdAll: async() => {
-      return await categoryRepository.findCategoryIdAll();
+    getCategoryAll: async(postId:string) => {
+      return await categoryRepository.findCategoryAll(postId);
     },
     getCategoryByName: async(name: string) => {
       return await categoryRepository.findCategoryByName(name);

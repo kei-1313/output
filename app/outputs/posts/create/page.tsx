@@ -40,7 +40,6 @@ const OutputsCreatePage = () => {
     if(ArticleContent) {
       setSource(ArticleContent)
     }
-    console.log("レンダリング");
   }, []);
 
   //投稿をPOSTする
@@ -70,7 +69,6 @@ const OutputsCreatePage = () => {
         userId: 'cluf8ddnh0001fwhr0nwcwso0',
         tags: tags
       };
-      console.log(newPost);
 
       const res = await fetch('/api/posts/', {
         method: 'POST',
