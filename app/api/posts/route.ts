@@ -118,18 +118,7 @@ export async function PUT(request: Request) {
     return NextResponse.json(post);
   }
 
-  // //カテゴリがある場合
-  // // createManyでもいけそう
-  // const categories = await Promise.all(
-  //   tags.map(async (tag: Tags) => {
-  //     const newTag = await categoryService.getCategoryByName(tag.name);
-  //     if (newTag) {
-  //       return newTag;
-  //     } else {
-  //       return tag;
-  //     }
-  //   }),
-  // );
+  //カテゴリーの更新、新しく追加の場合はcreateする
   const categoryIds = await Promise.all(
     tags.map(
       async (category:any) => await categoryService.updateCategoryByUser(category),
@@ -138,9 +127,6 @@ export async function PUT(request: Request) {
 
   //まだ無いカテゴリーだけに絞り込む
   const newCategories = categoryIds.filter(category => !category.name);
-
-  console.log(newCategories, "検証やで");
-
 
   // //投稿とカテゴリーの中間テーブルに各ID保存
   const categoryRelations = await Promise.all(
