@@ -99,7 +99,7 @@ export async function PUT(request: Request) {
 
   const body = await request.json();
 
-  const { title, contents, postId, thumbnail, userId, postFormatBaseId } = body;
+  const { title, contents, postId, thumbnail, userId, postFormatBaseId, tags } = body;
 
   const postBody = {
     title,
@@ -114,9 +114,9 @@ export async function PUT(request: Request) {
   const post = await postService.updatePostByUser(postBody);
 
   // //カテゴリがない場合
-  // if (tags.length === 0) {
-  //   return NextResponse.json(post);
-  // }
+  if (tags.length === 0) {
+    return NextResponse.json(post);
+  }
 
   // //カテゴリがある場合
   // // createManyでもいけそう
@@ -130,22 +130,28 @@ export async function PUT(request: Request) {
   //     }
   //   }),
   // );
-  // const categoryIds = await Promise.all(
-  //   categories.map(
-  //     async (category) => await categoryService.createCategoryByUser(category),
-  //   ),
-  // );
+  const categoryIds = await Promise.all(
+    tags.map(
+      async (category:any) => await categoryService.updateCategoryByUser(category),
+    ),
+  );
+
+  //まだ無いカテゴリーだけに絞り込む
+  const newCategories = categoryIds.filter(category => !category.name);
+
+  console.log(newCategories, "検証やで");
+
 
   // //投稿とカテゴリーの中間テーブルに各ID保存
-  // const categoryRelations = await Promise.all(
-  //   categoryIds.map(
-  //     async (categoryId: Category) =>
-  //       await categoryRelationService.createCategoryRelationByPost(
-  //         post.id,
-  //         categoryId.id,
-  //       ),
-  //   ),
-  // );
+  const categoryRelations = await Promise.all(
+    newCategories.map(
+      async (categoryId: Category) =>
+      await categoryRelationService.createCategoryRelationByPost(
+        post.id,
+        categoryId.id,
+      ),
+    ),
+  );
 
   return NextResponse.json(post);
 }

@@ -16,6 +16,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Post } from '@/types/Post/Post';
 
 interface Tags {
+  id: string
   label: string;
   name: string;
   icon: string;
@@ -34,7 +35,9 @@ const EditPage = ({post, postId}: EditPageProps) => {
 
   const [isPreview, setPreview] = useState(false);
 
-  const [tags, setTags] = useState<Tags[]>([]);
+  const exitingTags = post.CategoryRelations.map(tag => tag.Category)
+
+  const [tags, setTags] = useState<Tags[]>(exitingTags);
 
   console.log(post);
 
@@ -74,6 +77,27 @@ const EditPage = ({post, postId}: EditPageProps) => {
         throw Error('入力してください');
       }
 
+      const newTags = tags.map((tag,index) => {
+        if(post.CategoryRelations[index]) {
+          return {
+            postId: post.CategoryRelations[index].postId,
+            categoryId: post.CategoryRelations[index].categoryId,
+            category:{
+              id: post.CategoryRelations[index].categoryId,
+              label: tag.label,
+              name: tag.name,
+              icon: tag.icon
+            }
+          }
+        } else {
+          return {
+            postId: '',
+            categoryId: '',
+            category:tag
+          }
+        }
+      })
+
       const updatePost = {
         title: data.title,
         contents: data.contents,
@@ -81,7 +105,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
         userId: post.User.id,
         postId,
         postFormatBaseId: post.PostFormatBases[0].id,
-        tags: tags,
+        tags: newTags,
       };
 
       const res = await fetch('/api/posts/', {

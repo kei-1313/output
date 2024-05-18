@@ -15,9 +15,10 @@ export interface PostFormatBase {
 }
 
 export interface Category {
-  id: string;
+  id:string;
+  label: string;
   name: string;
-  description: string;
+  icon: string;
 }
 
 export interface CategoryRelation {

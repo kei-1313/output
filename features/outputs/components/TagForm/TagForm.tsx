@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface Tags {
+  id:string;
   label: string;
   name: string;
   icon: string;
@@ -23,6 +24,7 @@ const TagForm = ({ tags, setTags }: TagFormProps) => {
     if (event.key === 'Enter' && tagText.trim() !== '') {
       event.preventDefault();
       const newTag = {
+        id: '',
         label: uuidv4(),
         name: tagText.trim(),
         icon: '',
@@ -42,6 +44,7 @@ const TagForm = ({ tags, setTags }: TagFormProps) => {
   const handleClickLastTag = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const newTag = {
+      id: '',
       label: uuidv4(),
       name: event.currentTarget.innerHTML.trim(),
       icon: '',
