@@ -14,7 +14,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <article>
-      <ArticleHeader />
+      <ArticleHeader postId={params.id}/>
       <div className="mx-auto max-w-[580px] px-6 pb-24 pt-32 max-md:px-4">
         <div className="mb-10">
           <ArticleTitle title={post.title} />

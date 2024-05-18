@@ -6,6 +6,14 @@ interface savePostByUserProps {
   thumbnail: string;
   contents: string;
 }
+interface updatePostByUserProps {
+  postId: string;
+  userId: string;
+  title: string;
+  thumbnail: string;
+  contents: string;
+  postFormatBaseId: string;
+}
 
 export const createPostRepository = () => {
   return {
@@ -58,5 +66,37 @@ export const createPostRepository = () => {
         },
       });
     },
+    updatePostByUser: async ({
+      postId,
+      title,
+      thumbnail,
+      userId,
+      contents,
+      postFormatBaseId
+    }: updatePostByUserProps) => {
+      return await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          userId,
+          title,
+          updated_at: new Date(),
+          thumbnail,
+          PostFormatBases: {
+            update: [
+              {
+                where: {
+                  id: postFormatBaseId
+                },
+                data: {
+                  contents,
+                },
+              },
+            ],
+          },
+        }
+      })
+    }
   };
 };

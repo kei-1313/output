@@ -82,3 +82,70 @@ export async function POST(request: Request) {
 
   return NextResponse.json(post);
 }
+
+//投稿を編集、カテゴリー編集
+export async function PUT(request: Request) {
+  // Post
+  const postRepository = createPostRepository();
+  const postService = createPostService(postRepository);
+
+  // Category
+  const categoryRepository = createCategoryRepository();
+  const categoryService = createCategoryService(categoryRepository);
+
+  // CategoryRelation
+  const categoryRelationRepository = CreatecategoryRelationRepository();
+  const categoryRelationService = createCategoryRelationService(categoryRelationRepository);
+
+  const body = await request.json();
+
+  const { title, contents, postId, thumbnail, userId, postFormatBaseId } = body;
+
+  const postBody = {
+    title,
+    contents,
+    thumbnail,
+    userId,
+    postId,
+    postFormatBaseId,
+  };
+
+  // 投稿を更新
+  const post = await postService.updatePostByUser(postBody);
+
+  // //カテゴリがない場合
+  // if (tags.length === 0) {
+  //   return NextResponse.json(post);
+  // }
+
+  // //カテゴリがある場合
+  // // createManyでもいけそう
+  // const categories = await Promise.all(
+  //   tags.map(async (tag: Tags) => {
+  //     const newTag = await categoryService.getCategoryByName(tag.name);
+  //     if (newTag) {
+  //       return newTag;
+  //     } else {
+  //       return tag;
+  //     }
+  //   }),
+  // );
+  // const categoryIds = await Promise.all(
+  //   categories.map(
+  //     async (category) => await categoryService.createCategoryByUser(category),
+  //   ),
+  // );
+
+  // //投稿とカテゴリーの中間テーブルに各ID保存
+  // const categoryRelations = await Promise.all(
+  //   categoryIds.map(
+  //     async (categoryId: Category) =>
+  //       await categoryRelationService.createCategoryRelationByPost(
+  //         post.id,
+  //         categoryId.id,
+  //       ),
+  //   ),
+  // );
+
+  return NextResponse.json(post);
+}
