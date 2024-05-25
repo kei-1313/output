@@ -71,5 +71,12 @@ export const createCategoryRepository = () => {
         });
       }
     },
+    deleteCategoryByCategoryId: async (categoryId: string) => {
+      return await prisma.category.deleteMany({
+        where:{
+          id: categoryId
+        }
+      })
+    }
   };
 };

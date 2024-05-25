@@ -34,5 +34,8 @@ export const createCategoryService = (categoryRepository: any) => {
     updateCategoryByUser: async (body: updateCategoryByUserProps) => {
       return await categoryRepository.updateCategoryByUser({ ...body });
     },
+    deleteCategoryByCategoryId: async (categoryId: string) => {
+      return await categoryRepository.deleteCategoryByCategoryId(categoryId);
+    }
   };
 };

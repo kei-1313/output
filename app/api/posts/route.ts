@@ -5,6 +5,7 @@ import { createCategoryRepository } from '@/repository/category/CategoryReposito
 import { createCategoryService } from '@/service/category/CategoryService';
 import { CreatecategoryRelationRepository } from '@/repository/categoryRelation/CategoryRelationRepository';
 import { createCategoryRelationService } from '@/service/categoryRelation/CategoryRelationService';
+import { any } from 'zod';
 
 interface Tags {
   label: string;
@@ -113,29 +114,53 @@ export async function PUT(request: Request) {
   // 投稿を更新
   const post = await postService.updatePostByUser(postBody);
 
-  // //カテゴリがない場合
-  if (tags.length === 0) {
-    return NextResponse.json(post);
-  }
+  // 現在のカテゴリを取得
+  const currentCategories = await categoryRelationService.getCategoryRelationByPost(post.id);
 
-  //カテゴリーの更新、新しく追加の場合はcreateする
-  const categoryIds = await Promise.all(
-    tags.map(
-      async (category:any) => await categoryService.updateCategoryByUser(category),
-    ),
+  //タグの名前のリストを作成
+  const newTagNames = tags.map(tag => tag.name);
+
+  // 削除されたカテゴリを特定
+  const categoriesToDelete = currentCategories.filter(category => !newTagNames.includes(category.Category.name));
+
+
+  // 先にカテゴリリレーションテーブルからカテゴリIDを使い、データベースから削除（外部制約違反を起こさないため）
+  await Promise.all(
+    categoriesToDelete.map(
+      async category => {
+        await categoryRelationService.deleteCategoryRelationByCategoryId(category.Category.id);
+      }
+    )
+  );
+  // カテゴリテーブルからカテゴリIDを使い、データベースから削除
+  await Promise.all(
+    categoriesToDelete.map(
+      async category => {
+        await categoryService.deleteCategoryByCategoryId(category.Category.id);
+      }
+    )
   );
 
-  //まだ無いカテゴリーだけに絞り込む
-  const newCategories = categoryIds.filter(category => !category.name);
+  // 新しいカテゴリの処理
+  const categoryIds = (await Promise.all(
+    tags.map(async (tag) => {
+      const existingCategory = await categoryService.getCategoryByName(tag.name);
+      if (existingCategory) {
+        return undefined;
+      } else {
+        return await categoryService.createCategoryByUser(tag);
+      }
+    })
+  )).filter((id: string) => id !== undefined);
 
-  // //投稿とカテゴリーの中間テーブルに各ID保存
-  const categoryRelations = await Promise.all(
-    newCategories.map(
+  //  //投稿とカテゴリーの中間テーブルに各ID保存
+   const categoryRelations = await Promise.all(
+    categoryIds.map(
       async (categoryId: Category) =>
-      await categoryRelationService.createCategoryRelationByPost(
-        post.id,
-        categoryId.id,
-      ),
+        await categoryRelationService.createCategoryRelationByPost(
+          post.id,
+          categoryId.id,
+        ),
     ),
   );
 

@@ -11,5 +11,11 @@ export const createCategoryRelationService = (
         categoryId,
       );
     },
+    getCategoryRelationByPost: async (postId: string) => {
+      return await categoryRelationRepository.findCategoryRelationByPost(postId)
+    },
+    deleteCategoryRelationByCategoryId: async (categoryId: string) => {
+      return await categoryRelationRepository.deleteCategoryRelationByCategoryId(categoryId)
+    },
   };
 };

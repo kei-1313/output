@@ -77,26 +77,27 @@ const EditPage = ({post, postId}: EditPageProps) => {
         throw Error('入力してください');
       }
 
-      const newTags = tags.map((tag,index) => {
-        if(post.CategoryRelations[index]) {
-          return {
-            postId: post.CategoryRelations[index].postId,
-            categoryId: post.CategoryRelations[index].categoryId,
-            category:{
-              id: post.CategoryRelations[index].categoryId,
-              label: tag.label,
-              name: tag.name,
-              icon: tag.icon
-            }
-          }
-        } else {
-          return {
-            postId: '',
-            categoryId: '',
-            category:tag
-          }
-        }
-      })
+      //タグの数だけ更新する、タグが増えた場合新しく追加するため、postIdとcategoryIdを空にしている
+      // const newTags = tags.map((tag,index) => {
+      //   if(post.CategoryRelations[index]) {
+      //     return {
+      //       postId: post.CategoryRelations[index].postId,
+      //       categoryId: post.CategoryRelations[index].categoryId,
+      //       category:{
+      //         id: post.CategoryRelations[index].categoryId,
+      //         label: tag.label,
+      //         name: tag.name,
+      //         icon: tag.icon
+      //       }
+      //     }
+      //   } else {
+      //     return {
+      //       postId: '',
+      //       categoryId: '',
+      //       category:tag
+      //     }
+      //   }
+      // })
 
       const updatePost = {
         title: data.title,
@@ -105,8 +106,10 @@ const EditPage = ({post, postId}: EditPageProps) => {
         userId: post.User.id,
         postId,
         postFormatBaseId: post.PostFormatBases[0].id,
-        tags: newTags,
+        tags: tags,
       };
+
+      console.log(tags);
 
       const res = await fetch('/api/posts/', {
         method: 'PUT',
@@ -115,8 +118,6 @@ const EditPage = ({post, postId}: EditPageProps) => {
         },
         body: JSON.stringify(updatePost),
       });
-
-      console.log(res);
 
       reset();
       // router.push(`/outputs/posts/${postId}`);
