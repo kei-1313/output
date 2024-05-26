@@ -15,6 +15,7 @@ import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Post } from '@/types/Post/Post';
 import { Category } from '@/types/Category/Category';
+import Loading from '@/app/outputs/posts/[id]/edit/loading';
 
 interface Tags {
   id: string
@@ -42,6 +43,8 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
   const exitingTags = post.CategoryRelations.map(tag => tag.Category)
 
   const [tags, setTags] = useState<Tags[]>(exitingTags);
+
+  const [isLoading, setIsLoading] = useState(false);
 
 
   //後ほどカスタムフックにする
@@ -71,7 +74,7 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-
+    setIsLoading(true)
     try {
       //空白の場合
       if (!data.title || !data.contents) {
@@ -101,13 +104,21 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
     } catch (error) {
       //エラー処理
       console.error(error);
+    } finally {
+      setIsLoading(false)
     }
+
   };
 
   //プレビューの表示、非表示
   const handlePreviewClick = () => {
     setPreview(!isPreview);
   };
+
+  //ローディング
+  if(isLoading) {
+    return <Loading/>
+  }
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
