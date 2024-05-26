@@ -10,11 +10,10 @@ import ArticleTitle from '@/features/outputs/components/Title/ArticleTitle';
 
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
-  console.log(post.CategoryRelations);
 
   return (
     <article>
-      <ArticleHeader />
+      <ArticleHeader postId={params.id}/>
       <div className="mx-auto max-w-[580px] px-6 pb-24 pt-32 max-md:px-4">
         <div className="mb-10">
           <ArticleTitle title={post.title} />

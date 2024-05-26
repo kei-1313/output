@@ -6,9 +6,10 @@ interface PostFormTitleProps {
   register?: UseFormRegisterReturn;
   title: string;
   setTitle(event: string): void;
+  action: string;
 }
 
-const PostFormTitle = ({ register, title, setTitle }: PostFormTitleProps) => {
+const PostFormTitle = ({ register, title, setTitle, action }: PostFormTitleProps) => {
   return (
     <textarea
       {...register}
@@ -17,7 +18,12 @@ const PostFormTitle = ({ register, title, setTitle }: PostFormTitleProps) => {
       onChange={(e) => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
-        localStorage.setItem('ArticleTitle', e.target.value);
+        if(action === 'edit') {
+          localStorage.setItem('EditArticleTitle', e.target.value);
+        }
+        if(action === 'create') {
+          localStorage.setItem('ArticleTitle', e.target.value);
+        }
         setTitle(e.target.value);
       }}
       placeholder="タイトル"

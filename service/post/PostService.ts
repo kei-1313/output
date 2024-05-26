@@ -6,6 +6,16 @@ interface CreatePostByUserProps {
     userId: string;
   };
 }
+interface UpdatePostByUserProps {
+  body: {
+    title: string;
+    contents: string;
+    thumbnail: string;
+    userId: string;
+    postId: string;
+    postFormatBaseId: string;
+  };
+}
 
 export const createPostService = (postRepository: any) => {
   return {
@@ -18,5 +28,8 @@ export const createPostService = (postRepository: any) => {
     createPostByUser: async (body: CreatePostByUserProps) => {
       return await postRepository.savePostByUser({ ...body });
     },
+    updatePostByUser: async (body: UpdatePostByUserProps) => {
+      return await postRepository.updatePostByUser({...body})
+    }
   };
 };

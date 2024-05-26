@@ -3,6 +3,7 @@ import { useState } from 'react';
 import TagForm from '../TagForm/TagForm';
 
 interface Tags {
+  id: string;
   label: string;
   name: string;
   icon: string;

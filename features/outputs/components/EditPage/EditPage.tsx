@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import CreateFooter from '@/features/outputs/components/Footer/CreateFooter';
 import PostFormTitle from '@/features/outputs/components/PostForm/Title/PostFormTitle';
 import PostFormBody from '@/features/outputs/components/PostForm/Body/PostFormBody';
@@ -13,35 +13,49 @@ import SubmitButton from '@/features/outputs/components/Button/SubmitButton';
 import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
 import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
+import { Post } from '@/types/Post/Post';
 
 interface Tags {
-  id: string;
+  id: string
   label: string;
   name: string;
   icon: string;
 }
 
-const OutputsCreatePage = () => {
-  const router = useRouter();
+interface EditPageProps {
+  post: Post,
+  postId: string
+}
 
-  const [title, setTitle] = useState('');
-  const [source, setSource] = useState('');
+const EditPage = ({post, postId}: EditPageProps) => {
+  const router = useRouter();
+  const postTitle = post.title;
+  const postContent = post.PostFormatBases[0].contents;
+
+  const [title, setTitle] = useState(postTitle);
+  const [source, setSource] = useState(postContent);
 
   const [isPreview, setPreview] = useState(false);
 
-  const [tags, setTags] = useState<Tags[]>([]);
+  const exitingTags = post.CategoryRelations.map(tag => tag.Category)
 
-  // localstorageに保存されている場合、初期表示させる
+  const [tags, setTags] = useState<Tags[]>(exitingTags);
+
+  console.log(post);
+
+
+  //後ほどカスタムフックにする
+  // 編集があれば、localstorageの値を表示させる
   useEffect(() => {
-    const ArticleTitle = localStorage.getItem('ArticleTitle');
-    const ArticleContent = localStorage.getItem('ArticleContent');
-    if (ArticleTitle) {
-      setTitle(ArticleTitle);
+    const EditArticleTitle = localStorage.getItem('EditArticleTitle');
+    const EditArticleContent = localStorage.getItem('EditArticleContent');
+    if (EditArticleTitle && postTitle !== EditArticleTitle) {
+      setTitle(EditArticleTitle);
     }
-    if (ArticleContent) {
-      setSource(ArticleContent);
+    if (EditArticleContent && postContent !== EditArticleContent) {
+      setSource(EditArticleContent);
     }
-  }, []);
+  }, [postTitle, postContent]);
 
   //投稿をPOSTする
   const {
@@ -57,30 +71,58 @@ const OutputsCreatePage = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+
     try {
       //空白の場合
       if (!data.title || !data.contents) {
         throw Error('入力してください');
       }
 
-      const newPost = {
+      //タグの数だけ更新する、タグが増えた場合新しく追加するため、postIdとcategoryIdを空にしている
+      // const newTags = tags.map((tag,index) => {
+      //   if(post.CategoryRelations[index]) {
+      //     return {
+      //       postId: post.CategoryRelations[index].postId,
+      //       categoryId: post.CategoryRelations[index].categoryId,
+      //       category:{
+      //         id: post.CategoryRelations[index].categoryId,
+      //         label: tag.label,
+      //         name: tag.name,
+      //         icon: tag.icon
+      //       }
+      //     }
+      //   } else {
+      //     return {
+      //       postId: '',
+      //       categoryId: '',
+      //       category:tag
+      //     }
+      //   }
+      // })
+
+      const updatePost = {
         title: data.title,
         contents: data.contents,
-        thumbnail: 'thumbnail',
-        userId: 'cluf8ddnh0001fwhr0nwcwso0',
+        thumbnail: post.thumbnail,
+        userId: post.User.id,
+        postId,
+        postFormatBaseId: post.PostFormatBases[0].id,
         tags: tags,
       };
 
+      console.log(tags);
+
       const res = await fetch('/api/posts/', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newPost),
+        body: JSON.stringify(updatePost),
       });
 
       reset();
-      router.push('/outputs');
+      // router.push(`/outputs/posts/${postId}`);
     } catch (error) {
       //エラー処理
       console.error(error);
@@ -97,7 +139,7 @@ const OutputsCreatePage = () => {
       <div className="flex h-14 items-center justify-between gap-2 px-4">
         <div className="lg:flex-1">
           <Link
-            href={'/outputs'}
+            href={`/outputs/posts/${postId}`}
             className="flex h-[36px] w-[36px] items-center justify-center rounded-full transition duration-300 hover:bg-sky-50"
           >
             <FaArrowLeft
@@ -131,7 +173,7 @@ const OutputsCreatePage = () => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
-                action={"create"}
+                action={"edit"}
               />
             </div>
             <div>
@@ -139,7 +181,7 @@ const OutputsCreatePage = () => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
-                action={"create"}
+                action={"edit"}
               />
             </div>
           </>
@@ -148,6 +190,6 @@ const OutputsCreatePage = () => {
       <CreateFooter length={source.length} />
     </form>
   );
-};
+}
 
-export default OutputsCreatePage;
+export default EditPage
