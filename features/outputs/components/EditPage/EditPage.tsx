@@ -14,6 +14,8 @@ import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
 import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Post } from '@/types/Post/Post';
+import { Category } from '@/types/Category/Category';
+import Loading from '@/app/outputs/posts/[id]/edit/loading';
 
 interface Tags {
   id: string
@@ -23,11 +25,12 @@ interface Tags {
 }
 
 interface EditPageProps {
-  post: Post,
-  postId: string
+  post: Post;
+  postId: string;
+  categoies: Category[];
 }
 
-const EditPage = ({post, postId}: EditPageProps) => {
+const EditPage = ({post, postId, categoies}: EditPageProps) => {
   const router = useRouter();
   const postTitle = post.title;
   const postContent = post.PostFormatBases[0].contents;
@@ -41,7 +44,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
 
   const [tags, setTags] = useState<Tags[]>(exitingTags);
 
-  console.log(post);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   //後ほどカスタムフックにする
@@ -71,35 +74,12 @@ const EditPage = ({post, postId}: EditPageProps) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
-
+    setIsLoading(true)
     try {
       //空白の場合
       if (!data.title || !data.contents) {
         throw Error('入力してください');
       }
-
-      //タグの数だけ更新する、タグが増えた場合新しく追加するため、postIdとcategoryIdを空にしている
-      // const newTags = tags.map((tag,index) => {
-      //   if(post.CategoryRelations[index]) {
-      //     return {
-      //       postId: post.CategoryRelations[index].postId,
-      //       categoryId: post.CategoryRelations[index].categoryId,
-      //       category:{
-      //         id: post.CategoryRelations[index].categoryId,
-      //         label: tag.label,
-      //         name: tag.name,
-      //         icon: tag.icon
-      //       }
-      //     }
-      //   } else {
-      //     return {
-      //       postId: '',
-      //       categoryId: '',
-      //       category:tag
-      //     }
-      //   }
-      // })
 
       const updatePost = {
         title: data.title,
@@ -111,8 +91,6 @@ const EditPage = ({post, postId}: EditPageProps) => {
         tags: tags,
       };
 
-      console.log(tags);
-
       const res = await fetch('/api/posts/', {
         method: 'PUT',
         headers: {
@@ -122,17 +100,25 @@ const EditPage = ({post, postId}: EditPageProps) => {
       });
 
       reset();
-      // router.push(`/outputs/posts/${postId}`);
+      router.push(`/outputs/posts/${postId}`);
     } catch (error) {
       //エラー処理
       console.error(error);
+    } finally {
+      setIsLoading(false)
     }
+
   };
 
   //プレビューの表示、非表示
   const handlePreviewClick = () => {
     setPreview(!isPreview);
   };
+
+  //ローディング
+  if(isLoading) {
+    return <Loading/>
+  }
 
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
@@ -155,7 +141,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} />
+          <TagSettings tags={tags} setTags={setTags} categoies={categoies}/>
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}

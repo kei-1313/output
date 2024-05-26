@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Category } from '@/types/Category/Category';
 
 interface Tags {
   id:string;
@@ -12,11 +13,13 @@ interface Tags {
 interface TagFormProps {
   tags: Tags[];
   setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
+  categoies: Category[]
 }
 
-const TagForm = ({ tags, setTags }: TagFormProps) => {
+const TagForm = ({ tags, setTags, categoies}: TagFormProps) => {
   // const [tags, setTags] = useState<Tag[]>([]);
   const [tagText, setTagText] = useState('');
+  console.log(categoies);
 
   //入力値をタグにする
   const handleEnterTag = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -82,25 +85,22 @@ const TagForm = ({ tags, setTags }: TagFormProps) => {
         />
       </div>
       <div>
-        <div className="grid grid-cols-3 gap-2 p-1.5">
-          <button
-            onClick={handleClickLastTag}
-            className="block cursor-pointer rounded-lg bg-slate-300/50 p-2.5 text-sm text-slate-600"
-          >
-            React
-          </button>
-          <button
-            onClick={handleClickLastTag}
-            className="block cursor-pointer rounded-lg bg-slate-300/50 p-2.5 text-sm text-slate-600"
-          >
-            React
-          </button>
-          <button
-            onClick={handleClickLastTag}
-            className="block cursor-pointer rounded-lg bg-slate-300/50 p-2.5 text-sm text-slate-600"
-          >
-            React
-          </button>
+        <div className="flex flex-wrap gap-2 p-1.5">
+          {categoies.length > 0? (
+            <>
+              {categoies?.map((category, index) => (
+                <button
+                  onClick={handleClickLastTag}
+                  key={category.id}
+                  className="block cursor-pointer rounded-lg bg-slate-300/50 p-2.5 text-sm text-slate-600"
+                >
+                  { category.name }
+                </button>
+              ))}
+            </>
+          ): (
+            <></>
+          )}
         </div>
       </div>
     </div>

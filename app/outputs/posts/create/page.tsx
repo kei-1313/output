@@ -113,7 +113,7 @@ const OutputsCreatePage = () => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} />
+          <TagSettings tags={tags} setTags={setTags} categoies={[]}/>
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}

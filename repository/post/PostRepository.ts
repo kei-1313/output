@@ -43,6 +43,26 @@ export const createPostRepository = () => {
         },
       });
     },
+    findPostByUser: async (userId: string) => {
+      return await prisma.post.findMany({
+        where: {
+          userId,
+        },
+        include: {
+          PostFormatBases: true,
+          CategoryRelations: {
+            include: {
+              Category: true,
+            },
+          },
+          Likes: true,
+        },
+        orderBy: {
+          created_at: 'desc'
+        },
+        take: 3
+      });
+    },
     savePostByUser: async ({
       userId,
       title,

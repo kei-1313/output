@@ -7,12 +7,10 @@ const useDebounce = (value: string, delay: number) => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      console.log('実行中');
       setDebouncedValue(value);
     }, delay);
 
     return () => {
-      console.log('クリーン');
       clearTimeout(handler);
     };
   }, [value, delay]);

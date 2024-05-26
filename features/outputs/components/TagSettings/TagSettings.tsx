@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import TagForm from '../TagForm/TagForm';
+import { Category } from '@/types/Category/Category';
 
 interface Tags {
   id: string;
@@ -12,9 +13,10 @@ interface Tags {
 interface TagSettingsProps {
   tags: Tags[];
   setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
+  categoies: Category[];
 }
 
-const TagSettings = ({ tags, setTags }: TagSettingsProps) => {
+const TagSettings = ({ tags, setTags, categoies }: TagSettingsProps) => {
   const [isTagModalShow, setIsTagModalShow] = useState(false);
   //タグモーダルの開閉
   const handleShowTagModal = () => {
@@ -38,7 +40,7 @@ const TagSettings = ({ tags, setTags }: TagSettingsProps) => {
           </span>
         )}
       </button>
-      {isTagModalShow ? <TagForm tags={tags} setTags={setTags} /> : <></>}
+      {isTagModalShow ? <TagForm tags={tags} setTags={setTags} categoies={categoies}/> : <></>}
     </div>
   );
 };
