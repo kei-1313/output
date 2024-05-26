@@ -15,6 +15,7 @@ import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
 
 interface Tags {
+  id: string;
   label: string;
   name: string;
   icon: string;
@@ -130,6 +131,7 @@ const OutputsCreatePage = () => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
+                action={"create"}
               />
             </div>
             <div>
@@ -137,6 +139,7 @@ const OutputsCreatePage = () => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
+                action={"create"}
               />
             </div>
           </>

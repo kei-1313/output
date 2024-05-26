@@ -43,17 +43,17 @@ const EditPage = ({post, postId}: EditPageProps) => {
 
 
   //後ほどカスタムフックにする
-  // localstorageに保存されている場合、初期表示させる
-  // useEffect(() => {
-  //   const ArticleTitle = localStorage.getItem('ArticleTitle');
-  //   const ArticleContent = localStorage.getItem('ArticleContent');
-  //   if (ArticleTitle) {
-  //     setTitle(ArticleTitle);
-  //   }
-  //   if (ArticleContent) {
-  //     setSource(ArticleContent);
-  //   }
-  // }, []);
+  // 編集があれば、localstorageの値を表示させる
+  useEffect(() => {
+    const EditArticleTitle = localStorage.getItem('EditArticleTitle');
+    const EditArticleContent = localStorage.getItem('EditArticleContent');
+    if (EditArticleTitle && post.title !== EditArticleTitle) {
+      setTitle(EditArticleTitle);
+    }
+    if (EditArticleContent && post.PostFormatBases[0].contents !== EditArticleContent) {
+      setSource(EditArticleContent);
+    }
+  }, []);
 
   //投稿をPOSTする
   const {
@@ -171,6 +171,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
+                action={"edit"}
               />
             </div>
             <div>
@@ -178,6 +179,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
+                action={"edit"}
               />
             </div>
           </>
