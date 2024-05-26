@@ -71,35 +71,12 @@ const EditPage = ({post, postId}: EditPageProps) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
 
     try {
       //空白の場合
       if (!data.title || !data.contents) {
         throw Error('入力してください');
       }
-
-      //タグの数だけ更新する、タグが増えた場合新しく追加するため、postIdとcategoryIdを空にしている
-      // const newTags = tags.map((tag,index) => {
-      //   if(post.CategoryRelations[index]) {
-      //     return {
-      //       postId: post.CategoryRelations[index].postId,
-      //       categoryId: post.CategoryRelations[index].categoryId,
-      //       category:{
-      //         id: post.CategoryRelations[index].categoryId,
-      //         label: tag.label,
-      //         name: tag.name,
-      //         icon: tag.icon
-      //       }
-      //     }
-      //   } else {
-      //     return {
-      //       postId: '',
-      //       categoryId: '',
-      //       category:tag
-      //     }
-      //   }
-      // })
 
       const updatePost = {
         title: data.title,
@@ -111,8 +88,6 @@ const EditPage = ({post, postId}: EditPageProps) => {
         tags: tags,
       };
 
-      console.log(tags);
-
       const res = await fetch('/api/posts/', {
         method: 'PUT',
         headers: {
@@ -122,7 +97,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
       });
 
       reset();
-      // router.push(`/outputs/posts/${postId}`);
+      router.push(`/outputs/posts/${postId}`);
     } catch (error) {
       //エラー処理
       console.error(error);
