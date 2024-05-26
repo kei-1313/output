@@ -14,6 +14,7 @@ import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
 import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Post } from '@/types/Post/Post';
+import { Category } from '@/types/Category/Category';
 
 interface Tags {
   id: string
@@ -23,11 +24,12 @@ interface Tags {
 }
 
 interface EditPageProps {
-  post: Post,
-  postId: string
+  post: Post;
+  postId: string;
+  categoies: Category[];
 }
 
-const EditPage = ({post, postId}: EditPageProps) => {
+const EditPage = ({post, postId, categoies}: EditPageProps) => {
   const router = useRouter();
   const postTitle = post.title;
   const postContent = post.PostFormatBases[0].contents;
@@ -40,8 +42,6 @@ const EditPage = ({post, postId}: EditPageProps) => {
   const exitingTags = post.CategoryRelations.map(tag => tag.Category)
 
   const [tags, setTags] = useState<Tags[]>(exitingTags);
-
-  console.log(post);
 
 
   //後ほどカスタムフックにする
@@ -130,7 +130,7 @@ const EditPage = ({post, postId}: EditPageProps) => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} />
+          <TagSettings tags={tags} setTags={setTags} categoies={categoies}/>
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}

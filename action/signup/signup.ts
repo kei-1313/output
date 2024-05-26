@@ -53,7 +53,6 @@ export async function signUp(values: z.infer<typeof SignUpSchema>) {
     });
 
     const verificationToken = await generateVerificationToken(email);
-    console.log(verificationToken);
 
     await sendVerificationEmail(
       verificationToken.email,
