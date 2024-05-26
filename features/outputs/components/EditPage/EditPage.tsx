@@ -29,9 +29,11 @@ interface EditPageProps {
 
 const EditPage = ({post, postId}: EditPageProps) => {
   const router = useRouter();
+  const postTitle = post.title;
+  const postContent = post.PostFormatBases[0].contents;
 
-  const [title, setTitle] = useState(post.title);
-  const [source, setSource] = useState(post.PostFormatBases[0].contents);
+  const [title, setTitle] = useState(postTitle);
+  const [source, setSource] = useState(postContent);
 
   const [isPreview, setPreview] = useState(false);
 
@@ -47,13 +49,13 @@ const EditPage = ({post, postId}: EditPageProps) => {
   useEffect(() => {
     const EditArticleTitle = localStorage.getItem('EditArticleTitle');
     const EditArticleContent = localStorage.getItem('EditArticleContent');
-    if (EditArticleTitle && post.title !== EditArticleTitle) {
+    if (EditArticleTitle && postTitle !== EditArticleTitle) {
       setTitle(EditArticleTitle);
     }
-    if (EditArticleContent && post.PostFormatBases[0].contents !== EditArticleContent) {
+    if (EditArticleContent && postContent !== EditArticleContent) {
       setSource(EditArticleContent);
     }
-  }, []);
+  }, [postTitle, postContent]);
 
   //投稿をPOSTする
   const {
