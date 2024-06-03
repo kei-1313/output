@@ -3,7 +3,7 @@ export const publicRoutes: string[] = ['/new-verification'];
 export const authRoutes: string[] = [
   '/signup',
   '/login',
-  '/reset-password',
+  '/password-reset',
   '/new-password',
 ];
 
