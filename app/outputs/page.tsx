@@ -1,3 +1,4 @@
+import { account } from '@/action/account/account';
 import { postsAll } from '@/action/post/postsAll';
 import CardList from '@/features/outputs/components/CardList/CardList';
 import CategoryList from '@/features/outputs/components/CategoryList/CategoryList';
@@ -5,7 +6,7 @@ import PageTitle from '@/features/outputs/components/Title/PageTitle';
 
 const outputsPage = async () => {
   const posts = await postsAll();
-
+  const user = await account();
   return (
     <div className="mx-auto mt-[50px] max-w-[880px] px-5 ">
       <PageTitle>OUTPUTS</PageTitle>
