@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 
-const ProfileName = () => {
+interface ProfileNameProps {
+  userName: string | undefined;
+}
+
+const ProfileName = ({userName}: ProfileNameProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [name, setName] = useState('dalmi');
+  const [name, setName] = useState(userName);
 
   const handleEditName = () => {
     setIsEdit(true);
@@ -27,7 +31,7 @@ const ProfileName = () => {
           placeholder="表示名を入力"
         />
       ) : (
-        <p className="mb-5 text-gray-400">dalmi</p>
+        <p className="mb-5 text-gray-400">{name}</p>
       )}
       {isEdit ? (
         <div className="flex justify-end gap-4">

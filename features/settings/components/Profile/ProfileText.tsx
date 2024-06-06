@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 
-const ProfileText = () => {
+interface ProfileTextProps {
+  userProfile: string | undefined
+}
+
+const ProfileText = ({userProfile}: ProfileTextProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [name, setName] = useState('');
+  const [profile, setProfile] = useState(userProfile);
 
   const handleEditName = () => {
     setIsEdit(true);
@@ -20,19 +24,24 @@ const ProfileText = () => {
           className="mb-5 w-full resize-none rounded-lg border px-3 py-2.5 text-sm leading-normal outline-none transition-all disabled:cursor-not-allowed disabled:opacity-60"
           name=""
           id=""
-          value={name}
+          value={profile}
           onChange={(e) => {
             e.target.style.height = 'auto';
             e.target.style.height = e.target.scrollHeight + 'px';
-            setName(e.target.value);
+            setProfile(e.target.value);
           }}
           placeholder="200字まで自由入力"
         ></textarea>
-      ) : (
-        <p className="mb-5 text-gray-400">
-          本文下に好きな文章を表示することができます。
-        </p>
-      )}
+      ) : profile ? (
+            <p className="mb-5 text-gray-400">
+              {profile}
+            </p>
+          ):(
+            <p className="mb-5 text-gray-400">
+              本文下に好きな文章を表示することができます。
+            </p>
+          )
+      }
       {isEdit ? (
         <div className="flex justify-end gap-4">
           <button

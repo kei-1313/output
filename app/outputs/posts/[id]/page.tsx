@@ -1,5 +1,4 @@
 import { postById } from '@/action/post/postById';
-import { account } from '@/action/account/account';
 
 import ArticleCategoryList from '@/features/outputs/components/ArticleCategoryList/ArticleCategoryList';
 import ArticleContent from '@/features/outputs/components/ArticleContent/ArticleContent';
