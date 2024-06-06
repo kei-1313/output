@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
 import Link from 'next/link';
+import { User } from '@/types/types';
 
 interface LoginUserInfoProps {
   href: string;
@@ -8,6 +9,7 @@ interface LoginUserInfoProps {
   username: string;
   width: number;
   height: number;
+  user: User | null;
 }
 
 const LoginUserInfo = ({
@@ -16,6 +18,7 @@ const LoginUserInfo = ({
   username,
   width,
   height,
+  user
 }: LoginUserInfoProps) => {
   return (
     <div className="flex items-center gap-4">
@@ -29,7 +32,7 @@ const LoginUserInfo = ({
         />
         <div>
           <Link className="text-base leading-normal" href={href}>
-            {username}
+            {user?.name}
           </Link>
         </div>
       </div>

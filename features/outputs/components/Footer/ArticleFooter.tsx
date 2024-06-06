@@ -1,10 +1,11 @@
 import LoginUserInfo from '@/features/utils/LoginUserInfo/LoginUserInfo';
+import { User } from '@/types/types';
 
 interface ArticleFooterProps {
-  currentAccount: any;
+  user: User | null;
 }
 
-const ArticleFooter = () => {
+const ArticleFooter = ({user}: ArticleFooterProps) => {
   return (
     <footer className="bg-footer pb-20 pt-14 max-md:pt-6">
       <div className="mx-auto flex w-full max-w-screen-lg px-6">
@@ -14,6 +15,7 @@ const ArticleFooter = () => {
           href={'/settings'}
           src={''}
           username={'dalmi'}
+          user={user}
         />
       </div>
     </footer>

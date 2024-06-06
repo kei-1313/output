@@ -9,10 +9,11 @@ import ArticleUserIcon from '@/features/outputs/components/ArticleUserIcon/Artic
 import ArticleUserLinkHome from '@/features/outputs/components/ArticleUserLinkHome/ArticleUserLinkHome';
 import ArticleFooter from '@/features/outputs/components/Footer/ArticleFooter';
 import ArticleTitle from '@/features/outputs/components/Title/ArticleTitle';
+import { currentUser } from '@/action/user/currentUser';
 
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
-  const currentAccount = await account();
+  const user = await currentUser();
   return (
     <article>
       <ArticleHeader postId={params.id} />
@@ -49,7 +50,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleUserLinkHome username={post.User.name} href={'/settings'} />
         </div>
       </div>
-      <ArticleFooter />
+      <ArticleFooter user={user}/>
     </article>
   );
 };
