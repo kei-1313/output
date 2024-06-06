@@ -1,5 +1,9 @@
 import LoginUserInfo from '@/features/utils/LoginUserInfo/LoginUserInfo';
 
+interface ArticleFooterProps {
+  currentAccount: any;
+}
+
 const ArticleFooter = () => {
   return (
     <footer className="bg-footer pb-20 pt-14 max-md:pt-6">

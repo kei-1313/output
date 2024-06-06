@@ -113,7 +113,7 @@ const OutputsCreatePage = () => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} categoies={[]}/>
+          <TagSettings tags={tags} setTags={setTags} categoies={[]} />
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}
@@ -131,7 +131,7 @@ const OutputsCreatePage = () => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
-                action={"create"}
+                action={'create'}
               />
             </div>
             <div>
@@ -139,7 +139,7 @@ const OutputsCreatePage = () => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
-                action={"create"}
+                action={'create'}
               />
             </div>
           </>

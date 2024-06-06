@@ -18,7 +18,7 @@ import { Category } from '@/types/Category/Category';
 import Loading from '@/app/outputs/posts/[id]/edit/loading';
 
 interface Tags {
-  id: string
+  id: string;
   label: string;
   name: string;
   icon: string;
@@ -30,7 +30,7 @@ interface EditPageProps {
   categoies: Category[];
 }
 
-const EditPage = ({post, postId, categoies}: EditPageProps) => {
+const EditPage = ({ post, postId, categoies }: EditPageProps) => {
   const router = useRouter();
   const postTitle = post.title;
   const postContent = post.PostFormatBases[0].contents;
@@ -40,12 +40,11 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
 
   const [isPreview, setPreview] = useState(false);
 
-  const exitingTags = post.CategoryRelations.map(tag => tag.Category)
+  const exitingTags = post.CategoryRelations.map((tag) => tag.Category);
 
   const [tags, setTags] = useState<Tags[]>(exitingTags);
 
   const [isLoading, setIsLoading] = useState(false);
-
 
   //後ほどカスタムフックにする
   // 編集があれば、localstorageの値を表示させる
@@ -74,7 +73,7 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       //空白の場合
       if (!data.title || !data.contents) {
@@ -105,9 +104,8 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
       //エラー処理
       console.error(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-
   };
 
   //プレビューの表示、非表示
@@ -116,8 +114,8 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
   };
 
   //ローディング
-  if(isLoading) {
-    return <Loading/>
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -141,7 +139,7 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} categoies={categoies}/>
+          <TagSettings tags={tags} setTags={setTags} categoies={categoies} />
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}
@@ -159,7 +157,7 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
-                action={"edit"}
+                action={'edit'}
               />
             </div>
             <div>
@@ -167,7 +165,7 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
-                action={"edit"}
+                action={'edit'}
               />
             </div>
           </>
@@ -176,6 +174,6 @@ const EditPage = ({post, postId, categoies}: EditPageProps) => {
       <CreateFooter length={source.length} />
     </form>
   );
-}
+};
 
-export default EditPage
+export default EditPage;

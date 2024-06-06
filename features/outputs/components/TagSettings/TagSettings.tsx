@@ -40,7 +40,11 @@ const TagSettings = ({ tags, setTags, categoies }: TagSettingsProps) => {
           </span>
         )}
       </button>
-      {isTagModalShow ? <TagForm tags={tags} setTags={setTags} categoies={categoies}/> : <></>}
+      {isTagModalShow ? (
+        <TagForm tags={tags} setTags={setTags} categoies={categoies} />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -12,10 +12,14 @@ export const createCategoryRelationService = (
       );
     },
     getCategoryRelationByPost: async (postId: string) => {
-      return await categoryRelationRepository.findCategoryRelationByPost(postId)
+      return await categoryRelationRepository.findCategoryRelationByPost(
+        postId,
+      );
     },
     deleteCategoryRelationByCategoryId: async (categoryId: string) => {
-      return await categoryRelationRepository.deleteCategoryRelationByCategoryId(categoryId)
+      return await categoryRelationRepository.deleteCategoryRelationByCategoryId(
+        categoryId,
+      );
     },
   };
 };

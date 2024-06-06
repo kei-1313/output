@@ -3,10 +3,10 @@ import React from 'react';
 import EditArticle from '../Edit/EditArticle/EditArticle';
 
 interface ArticleHeaderProps {
-  postId: string
+  postId: string;
 }
 
-const ArticleHeader = ({postId}: ArticleHeaderProps) => {
+const ArticleHeader = ({ postId }: ArticleHeaderProps) => {
   return (
     <header>
       <div className="flex h-14 items-center justify-between px-4">

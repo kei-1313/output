@@ -160,7 +160,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgb(63,249,220);
+  background: rgb(63, 249, 220);
   transform: rotate(45deg);
   animation: configure-xclockwise 3s ease-in-out 0s infinite alternate;
 }

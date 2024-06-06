@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Category } from '@/types/Category/Category';
 
 interface Tags {
-  id:string;
+  id: string;
   label: string;
   name: string;
   icon: string;
@@ -13,10 +13,10 @@ interface Tags {
 interface TagFormProps {
   tags: Tags[];
   setTags: React.Dispatch<React.SetStateAction<Tags[]>>;
-  categoies: Category[]
+  categoies: Category[];
 }
 
-const TagForm = ({ tags, setTags, categoies}: TagFormProps) => {
+const TagForm = ({ tags, setTags, categoies }: TagFormProps) => {
   // const [tags, setTags] = useState<Tag[]>([]);
   const [tagText, setTagText] = useState('');
   console.log(categoies);
@@ -86,7 +86,7 @@ const TagForm = ({ tags, setTags, categoies}: TagFormProps) => {
       </div>
       <div>
         <div className="flex flex-wrap gap-2 p-1.5">
-          {categoies.length > 0? (
+          {categoies.length > 0 ? (
             <>
               {categoies?.map((category, index) => (
                 <button
@@ -94,11 +94,11 @@ const TagForm = ({ tags, setTags, categoies}: TagFormProps) => {
                   key={category.id}
                   className="block cursor-pointer rounded-lg bg-slate-300/50 p-2.5 text-sm text-slate-600"
                 >
-                  { category.name }
+                  {category.name}
                 </button>
               ))}
             </>
-          ): (
+          ) : (
             <></>
           )}
         </div>

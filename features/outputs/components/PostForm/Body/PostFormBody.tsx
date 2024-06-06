@@ -9,7 +9,12 @@ interface PostFormBodyProps {
   action: string;
 }
 
-const PostFormBody = ({ register, source, setSource, action }: PostFormBodyProps) => {
+const PostFormBody = ({
+  register,
+  source,
+  setSource,
+  action,
+}: PostFormBodyProps) => {
   return (
     <textarea
       {...register}
@@ -20,10 +25,10 @@ const PostFormBody = ({ register, source, setSource, action }: PostFormBodyProps
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
         localStorage.setItem('ArticleContent', e.target.value);
-        if(action === 'edit') {
+        if (action === 'edit') {
           localStorage.setItem('EditArticleContent', e.target.value);
         }
-        if(action === 'create') {
+        if (action === 'create') {
           localStorage.setItem('ArticleContent', e.target.value);
         }
         setSource(e.target.value);

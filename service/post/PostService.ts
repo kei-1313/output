@@ -32,7 +32,7 @@ export const createPostService = (postRepository: any) => {
       return await postRepository.savePostByUser({ ...body });
     },
     updatePostByUser: async (body: UpdatePostByUserProps) => {
-      return await postRepository.updatePostByUser({...body})
-    }
+      return await postRepository.updatePostByUser({ ...body });
+    },
   };
 };

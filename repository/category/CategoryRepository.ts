@@ -13,7 +13,7 @@ interface updateCategoryByUser {
     label: string;
     name: string;
     icon: string;
-  }
+  };
 }
 
 export const createCategoryRepository = () => {
@@ -44,14 +44,18 @@ export const createCategoryRepository = () => {
         },
       });
     },
-    updateCategoryByUser: async ({ postId, categoryId, category }: updateCategoryByUser) => {
+    updateCategoryByUser: async ({
+      postId,
+      categoryId,
+      category,
+    }: updateCategoryByUser) => {
       if (!categoryId || !postId) {
         // categoryIdが空の場合、新しいカテゴリを作成
         return await prisma.category.create({
           data: {
             label: category.label,
             name: category.name,
-            icon: category.icon
+            icon: category.icon,
           },
           select: {
             id: true,
@@ -61,22 +65,22 @@ export const createCategoryRepository = () => {
         // categoryIdが提供されている場合、既存のカテゴリを更新
         return await prisma.category.update({
           where: {
-            id: category.id
+            id: category.id,
           },
           data: {
             label: category.label,
             name: category.name,
-            icon: category.icon
+            icon: category.icon,
           },
         });
       }
     },
     deleteCategoryByCategoryId: async (categoryId: string) => {
       return await prisma.category.deleteMany({
-        where:{
-          id: categoryId
-        }
-      })
-    }
+        where: {
+          id: categoryId,
+        },
+      });
+    },
   };
 };

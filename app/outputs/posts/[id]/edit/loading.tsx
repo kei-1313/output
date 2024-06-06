@@ -8,8 +8,7 @@ const Loading = () => {
         <div className="configure-core"></div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Loading;
-
