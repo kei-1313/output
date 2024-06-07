@@ -5,7 +5,7 @@ import { User } from '@/types/types';
 
 interface LoginUserInfoProps {
   href: string;
-  src: string;
+  src: string | undefined;
   username: string;
   width: number;
   height: number;
@@ -25,7 +25,7 @@ const LoginUserInfo = ({
       <div className="flex items-center gap-2">
         <Avatar
           href={href}
-          src={src}
+          src={src || ''}
           width={width}
           height={height}
           alt={username}

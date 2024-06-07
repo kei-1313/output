@@ -13,7 +13,7 @@ const ArticleFooter = ({user}: ArticleFooterProps) => {
           width={30}
           height={30}
           href={'/settings'}
-          src={''}
+          src={user?.image}
           username={'dalmi'}
           user={user}
         />

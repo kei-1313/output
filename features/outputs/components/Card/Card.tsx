@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
           </Link>
           <div className="flex items-center gap-1">
             <Link href="/" className="block">
-              <span className="text-[13px] text-black">{post.username}</span>
+              <span className="text-[13px] text-black">{post.User.name}</span>
             </Link>
             <span className="mt-1 inline-block text-[12px] text-gray-500">
               {formatPostTime(post.created_at)}

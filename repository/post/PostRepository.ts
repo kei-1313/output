@@ -19,6 +19,9 @@ export const createPostRepository = () => {
   return {
     findPostAll: async () => {
       return await prisma.post.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
         include: {
           User: true,
           CategoryRelations: true,
