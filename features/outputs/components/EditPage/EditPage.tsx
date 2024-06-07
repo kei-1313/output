@@ -146,7 +146,6 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
           />
         </div>
       </div>
-      {/* <CreateHeader handlePreviewClick={handlePreviewClick} isPreview={isPreview}/> */}
       <div className="mx-auto max-w-[580px] px-6 py-24">
         {isPreview ? (
           <PrevieContent source={source} title={title} />

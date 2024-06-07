@@ -16,7 +16,7 @@ const EditArticle = ({ href }: EditArticleProps) => {
     <Link
       href={href}
       onClick={handleEditLocalStorageClick}
-      className="flex items-center gap-1"
+      className="flex items-center gap-1 hover:opacity-70"
     >
       <HiOutlinePencil width={30} height={30} />
       <span className="text-base">記事を編集</span>
