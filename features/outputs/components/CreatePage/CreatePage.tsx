@@ -71,7 +71,6 @@ const CreatePage = ({ currentUser }: CreatePageProps) => {
       const newPost = {
         title: data.title,
         contents: data.contents,
-        thumbnail: 'thumbnail',
         userId: currentUser?.id,
         tags: tags,
       };

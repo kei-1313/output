@@ -17,7 +17,12 @@ const Card: React.FC<CardProps> = ({ post }) => {
         href={`/outputs/posts/${post.id}`}
         className="flex h-[92px] w-[92px] items-center justify-center rounded-lg border-[1px] border-solid border-slate-300 bg-white"
       >
-        <Image src="/images/dammy.png" width={40} height={40} alt="dammy" />
+        {post.thumbnail? (
+          <Image src={post.thumbnail} width={80} height={80} alt="" />
+        ): (
+          <Image src="/images/dammy.png" width={60} height={60} alt="dammy" />
+        )}
+
       </Link>
       <div>
         <Link href={`/outputs/posts/${post.id}`}>
