@@ -6,6 +6,7 @@ import { createCategoryRepository } from '@/repository/category/CategoryReposito
 import { createCategoryService } from '@/service/category/CategoryService';
 import { CreatecategoryRelationRepository } from '@/repository/categoryRelation/CategoryRelationRepository';
 import { createCategoryRelationService } from '@/service/categoryRelation/CategoryRelationService';
+import getPokemonImage from '@/action/pokemon/getPokemonImage';
 
 interface Tags {
   label: string;
@@ -34,13 +35,14 @@ export async function POST(request: Request) {
   );
 
   const body = await request.json();
+  const thumnailImage = await getPokemonImage();
 
-  const { title, contents, thumbnail, userId, tags } = body;
+  const { title, contents, userId, tags } = body;
 
   const postBody = {
     title,
     contents,
-    thumbnail,
+    thumbnail: thumnailImage,
     userId,
   };
 

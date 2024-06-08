@@ -1,3 +1,4 @@
+import getPokemonImage from '@/action/pokemon/getPokemonImage';
 import { currentUser } from '@/action/user/currentUser';
 import CreatePage from '@/features/outputs/components/CreatePage/CreatePage';
 
