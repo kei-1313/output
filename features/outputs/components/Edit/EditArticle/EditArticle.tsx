@@ -1,5 +1,6 @@
 'use client';
 
+import removeLocalStorage from '@/utils/localstorage/removeLocalStorage';
 import Link from 'next/link';
 import { HiOutlinePencil } from 'react-icons/hi';
 interface EditArticleProps {
@@ -8,8 +9,7 @@ interface EditArticleProps {
 
 const EditArticle = ({ href }: EditArticleProps) => {
   const handleEditLocalStorageClick = () => {
-    localStorage.removeItem('EditArticleTitle');
-    localStorage.removeItem('EditArticleContent');
+    removeLocalStorage('EditArticleTitle','EditArticleContent')
   };
 
   return (
