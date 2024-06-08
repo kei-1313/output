@@ -42,7 +42,7 @@ export async function POST(request: Request) {
   const postBody = {
     title,
     contents,
-    thumbnail:thumnailImage,
+    thumbnail: thumnailImage,
     userId,
   };
 

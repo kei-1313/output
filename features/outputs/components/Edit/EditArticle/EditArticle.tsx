@@ -9,7 +9,7 @@ interface EditArticleProps {
 
 const EditArticle = ({ href }: EditArticleProps) => {
   const handleEditLocalStorageClick = () => {
-    removeLocalStorage('EditArticleTitle','EditArticleContent')
+    removeLocalStorage('EditArticleTitle', 'EditArticleContent');
   };
 
   return (
