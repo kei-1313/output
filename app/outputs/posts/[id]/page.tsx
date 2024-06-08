@@ -13,9 +13,14 @@ import { currentUser } from '@/action/user/currentUser';
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
   const user = await currentUser();
+
   return (
     <article>
-      <ArticleHeader postId={params.id} />
+      {post.userId === user?.id? (
+        <ArticleHeader postId={params.id} isEdit={true}/>
+      ):(
+        <ArticleHeader postId={params.id} isEdit={false}/>
+      )}
       <div className="mx-auto max-w-[580px] px-6 pb-24 pt-32 max-md:px-4">
         <div className="mb-10">
           <ArticleTitle title={post.title} />
