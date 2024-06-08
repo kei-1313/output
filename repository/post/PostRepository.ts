@@ -19,6 +19,9 @@ export const createPostRepository = () => {
   return {
     findPostAll: async () => {
       return await prisma.post.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
         include: {
           User: true,
           CategoryRelations: true,
@@ -58,9 +61,9 @@ export const createPostRepository = () => {
           Likes: true,
         },
         orderBy: {
-          created_at: 'desc'
+          created_at: 'desc',
         },
-        take: 3
+        take: 3,
       });
     },
     savePostByUser: async ({
@@ -92,7 +95,7 @@ export const createPostRepository = () => {
       thumbnail,
       userId,
       contents,
-      postFormatBaseId
+      postFormatBaseId,
     }: updatePostByUserProps) => {
       return await prisma.post.update({
         where: {
@@ -107,7 +110,7 @@ export const createPostRepository = () => {
             update: [
               {
                 where: {
-                  id: postFormatBaseId
+                  id: postFormatBaseId,
                 },
                 data: {
                   contents,
@@ -115,8 +118,8 @@ export const createPostRepository = () => {
               },
             ],
           },
-        }
-      })
-    }
+        },
+      });
+    },
   };
 };

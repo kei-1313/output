@@ -9,7 +9,12 @@ interface PostFormTitleProps {
   action: string;
 }
 
-const PostFormTitle = ({ register, title, setTitle, action }: PostFormTitleProps) => {
+const PostFormTitle = ({
+  register,
+  title,
+  setTitle,
+  action,
+}: PostFormTitleProps) => {
   return (
     <textarea
       {...register}
@@ -18,10 +23,10 @@ const PostFormTitle = ({ register, title, setTitle, action }: PostFormTitleProps
       onChange={(e) => {
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
-        if(action === 'edit') {
+        if (action === 'edit') {
           localStorage.setItem('EditArticleTitle', e.target.value);
         }
-        if(action === 'create') {
+        if (action === 'create') {
           localStorage.setItem('ArticleTitle', e.target.value);
         }
         setTitle(e.target.value);

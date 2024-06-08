@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import CreateFooter from '@/features/outputs/components/Footer/CreateFooter';
 import PostFormTitle from '@/features/outputs/components/PostForm/Title/PostFormTitle';
 import PostFormBody from '@/features/outputs/components/PostForm/Body/PostFormBody';
@@ -13,9 +13,7 @@ import SubmitButton from '@/features/outputs/components/Button/SubmitButton';
 import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
 import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Post } from '@/types/Post/Post';
-import { Category } from '@/types/Category/Category';
-import Loading from '@/app/outputs/posts/[id]/edit/loading';
+import { User } from '@/types/types';
 
 interface Tags {
   id: string;
@@ -24,40 +22,31 @@ interface Tags {
   icon: string;
 }
 
-interface EditPageProps {
-  post: Post;
-  postId: string;
-  categoies: Category[];
+interface CreatePageProps {
+  currentUser: User | null;
 }
 
-const EditPage = ({ post, postId, categoies }: EditPageProps) => {
+const CreatePage = ({ currentUser }: CreatePageProps) => {
   const router = useRouter();
-  const postTitle = post.title;
-  const postContent = post.PostFormatBases[0].contents;
 
-  const [title, setTitle] = useState(postTitle);
-  const [source, setSource] = useState(postContent);
+  const [title, setTitle] = useState('');
+  const [source, setSource] = useState('');
 
   const [isPreview, setPreview] = useState(false);
 
-  const exitingTags = post.CategoryRelations.map((tag) => tag.Category);
+  const [tags, setTags] = useState<Tags[]>([]);
 
-  const [tags, setTags] = useState<Tags[]>(exitingTags);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  //後ほどカスタムフックにする
-  // 編集があれば、localstorageの値を表示させる
+  // localstorageに保存されている場合、初期表示させる
   useEffect(() => {
-    const EditArticleTitle = localStorage.getItem('EditArticleTitle');
-    const EditArticleContent = localStorage.getItem('EditArticleContent');
-    if (EditArticleTitle && postTitle !== EditArticleTitle) {
-      setTitle(EditArticleTitle);
+    const ArticleTitle = localStorage.getItem('ArticleTitle');
+    const ArticleContent = localStorage.getItem('ArticleContent');
+    if (ArticleTitle) {
+      setTitle(ArticleTitle);
     }
-    if (EditArticleContent && postContent !== EditArticleContent) {
-      setSource(EditArticleContent);
+    if (ArticleContent) {
+      setSource(ArticleContent);
     }
-  }, [postTitle, postContent]);
+  }, []);
 
   //投稿をPOSTする
   const {
@@ -73,38 +62,33 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true);
     try {
       //空白の場合
       if (!data.title || !data.contents) {
         throw Error('入力してください');
       }
 
-      const updatePost = {
+      const newPost = {
         title: data.title,
         contents: data.contents,
-        thumbnail: post.thumbnail,
-        userId: post.User.id,
-        postId,
-        postFormatBaseId: post.PostFormatBases[0].id,
+        thumbnail: 'thumbnail',
+        userId: currentUser?.id,
         tags: tags,
       };
 
       const res = await fetch('/api/posts/', {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatePost),
+        body: JSON.stringify(newPost),
       });
 
       reset();
-      router.push(`/outputs/posts/${postId}`);
+      router.push('/outputs');
     } catch (error) {
       //エラー処理
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -113,17 +97,12 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
     setPreview(!isPreview);
   };
 
-  //ローディング
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <form className="min-h-screen" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex h-14 items-center justify-between gap-2 px-4">
         <div className="lg:flex-1">
           <Link
-            href={`/outputs/posts/${postId}`}
+            href={'/outputs'}
             className="flex h-[36px] w-[36px] items-center justify-center rounded-full transition duration-300 hover:bg-sky-50"
           >
             <FaArrowLeft
@@ -139,7 +118,7 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
           </div>
         </div>
         <div className="mr-4 flex flex-1 items-center justify-end gap-8">
-          <TagSettings tags={tags} setTags={setTags} categoies={categoies} />
+          <TagSettings tags={tags} setTags={setTags} categoies={[]} />
           <PreviewButton
             handlePreviewClick={handlePreviewClick}
             isPreview={isPreview}
@@ -156,7 +135,7 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
                 register={register('title')}
                 title={title}
                 setTitle={setTitle}
-                action={'edit'}
+                action={'create'}
               />
             </div>
             <div>
@@ -164,7 +143,7 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
                 register={register('contents')}
                 source={source}
                 setSource={setSource}
-                action={'edit'}
+                action={'create'}
               />
             </div>
           </>
@@ -175,4 +154,4 @@ const EditPage = ({ post, postId, categoies }: EditPageProps) => {
   );
 };
 
-export default EditPage;
+export default CreatePage;

@@ -10,22 +10,22 @@ export const CreatecategoryRelationRepository = () => {
         },
       });
     },
-    findCategoryRelationByPost: async(postId: string) => {
+    findCategoryRelationByPost: async (postId: string) => {
       return await prisma.categoryRelation.findMany({
         where: {
-          postId
+          postId,
         },
         select: {
-          Category: true
-        }
-      })
+          Category: true,
+        },
+      });
     },
-    deleteCategoryRelationByCategoryId: async(categoryId: string) => {
+    deleteCategoryRelationByCategoryId: async (categoryId: string) => {
       return await prisma.categoryRelation.deleteMany({
         where: {
-          categoryId
-        }
-      })
-    }
+          categoryId,
+        },
+      });
+    },
   };
 };

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { IoHome } from 'react-icons/io5';
 
 interface ArticleUserLinkHomeProps {
-  username: string;
+  username: string | undefined;
   href: string;
 }
 

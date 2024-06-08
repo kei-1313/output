@@ -16,7 +16,7 @@ interface updateCategoryByUserProps {
       label: string;
       name: string;
       icon: string;
-    }
+    };
   };
 }
 
@@ -36,6 +36,6 @@ export const createCategoryService = (categoryRepository: any) => {
     },
     deleteCategoryByCategoryId: async (categoryId: string) => {
       return await categoryRepository.deleteCategoryByCategoryId(categoryId);
-    }
+    },
   };
 };

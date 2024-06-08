@@ -1,12 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
-const ProfileImage = () => {
+interface ProfileImageProps {
+  userImage: string | undefined;
+  userId: string | undefined;
+}
+
+const ProfileImage = ({ userImage }: ProfileImageProps) => {
   const [avatar, setAvatar] = useState<File | null>(null);
   const [fileMessage, setFileMessage] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('/images/dammy.png');
+  const [avatarUrl, setAvatarUrl] = useState(userImage);
   //ファイル選択のカスタマイズのためにinputへアクセス
   const inputRef = useRef<HTMLInputElement>(null!);
 
@@ -52,13 +57,23 @@ const ProfileImage = () => {
     <div className="overflow-hidden rounded-2xl border border-slate-300/50 p-6 md:p-7">
       <div className="flex items-center gap-6">
         <div>
-          <Image
-            className="aspect-square rounded-full"
-            src={avatarUrl}
-            width={64}
-            height={64}
-            alt="dammy"
-          />
+          {avatarUrl ? (
+            <Image
+              className="aspect-square rounded-full"
+              src={avatarUrl}
+              width={64}
+              height={64}
+              alt=""
+            />
+          ) : (
+            <Image
+              className="aspect-square rounded-full"
+              src={'/images/dammy.png'}
+              width={64}
+              height={64}
+              alt="dammy"
+            />
+          )}
         </div>
         <div>
           <input

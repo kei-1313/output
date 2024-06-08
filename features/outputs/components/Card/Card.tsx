@@ -26,18 +26,30 @@ const Card: React.FC<CardProps> = ({ post }) => {
           </h2>
         </Link>
         <div className="mt-2 flex items-center gap-2">
-          <Link href="/" className="block">
-            <Image
-              className="rounded-full"
-              src="/images/dammy.png"
-              width={26}
-              height={26}
-              alt="dammy"
-            />
-          </Link>
+          {post.User.image ? (
+            <Link href="/" className="block">
+              <Image
+                className="rounded-full"
+                src={post.User.image}
+                width={26}
+                height={26}
+                alt=""
+              />
+            </Link>
+          ) : (
+            <Link href="/" className="block">
+              <Image
+                className="rounded-full"
+                src="/images/dammy.png"
+                width={26}
+                height={26}
+                alt="dammy"
+              />
+            </Link>
+          )}
           <div className="flex items-center gap-1">
             <Link href="/" className="block">
-              <span className="text-[13px] text-black">{post.username}</span>
+              <span className="text-[13px] text-black">{post.User.name}</span>
             </Link>
             <span className="mt-1 inline-block text-[12px] text-gray-500">
               {formatPostTime(post.created_at)}

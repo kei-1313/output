@@ -1,4 +1,5 @@
 import { postById } from '@/action/post/postById';
+
 import ArticleCategoryList from '@/features/outputs/components/ArticleCategoryList/ArticleCategoryList';
 import ArticleContent from '@/features/outputs/components/ArticleContent/ArticleContent';
 import ArticleDate from '@/features/outputs/components/ArticleDate/ArticleDate';
@@ -7,13 +8,19 @@ import ArticleUserIcon from '@/features/outputs/components/ArticleUserIcon/Artic
 import ArticleUserLinkHome from '@/features/outputs/components/ArticleUserLinkHome/ArticleUserLinkHome';
 import ArticleFooter from '@/features/outputs/components/Footer/ArticleFooter';
 import ArticleTitle from '@/features/outputs/components/Title/ArticleTitle';
+import { currentUser } from '@/action/user/currentUser';
 
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
+  const user = await currentUser();
 
   return (
     <article>
-      <ArticleHeader postId={params.id}/>
+      {post.userId === user?.id ? (
+        <ArticleHeader postId={params.id} isEdit={true} />
+      ) : (
+        <ArticleHeader postId={params.id} isEdit={false} />
+      )}
       <div className="mx-auto max-w-[580px] px-6 pb-24 pt-32 max-md:px-4">
         <div className="mb-10">
           <ArticleTitle title={post.title} />
@@ -44,10 +51,10 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           />
         </div>
         <div className="flex justify-center">
-          <ArticleUserLinkHome username={post.User.name} href={'/settings'} />
+          <ArticleUserLinkHome username={user?.name} href={'/settings'} />
         </div>
       </div>
-      <ArticleFooter />
+      <ArticleFooter user={user} />
     </article>
   );
 };
