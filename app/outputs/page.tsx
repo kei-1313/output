@@ -13,39 +13,41 @@ const outputsPage = async () => {
   const posts = await postsAll();
   const user = await currentUser();
   return (
-    <div className="mt-6">
+    <div className="mt-6 pb-20">
       <div className="flex justify-end px-4">
         <div className="flex gap-4">
-        <Link href={'/outputs'} className="">
-          {user?.image? (
-            <Image
-              className="rounded-full"
-              src={user.image}
-              width={32}
-              height={32}
-              alt=""
-            />
-          ):(
-            <Image
-              className="rounded-full"
-              src={'/images/dammy.png'}
-              width={32}
-              height={32}
-              alt=""
-            />
-          )}
-        </Link>
-          <Link href={'/outputs/posts/create'} className="flex items-center gap-1 hover:opacity-70">
+          <Link href={'/settings'} className="">
+            {user?.image ? (
+              <Image
+                className="rounded-full"
+                src={user.image}
+                width={32}
+                height={32}
+                alt=""
+              />
+            ) : (
+              <Image
+                className="rounded-full"
+                src={'/images/dammy.png'}
+                width={32}
+                height={32}
+                alt=""
+              />
+            )}
+          </Link>
+          <Link
+            href={'/outputs/posts/create'}
+            className="flex items-center gap-1 hover:opacity-70"
+          >
             <HiOutlinePencil width={30} height={30} />
             <span className="text-base">投稿する</span>
           </Link>
         </div>
       </div>
-      <div className="mx-auto mt-5  max-w-[880px] px-5">
-
+      <div className="mx-auto mt-5  max-w-[880px] px-5 ">
         <PageTitle>OUTPUTS</PageTitle>
         {/* <CategoryList categories={categories}/> */}
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<Loading />}>
           <CardList posts={posts} />
         </Suspense>
       </div>

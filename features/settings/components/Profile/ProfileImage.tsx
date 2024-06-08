@@ -5,10 +5,10 @@ import { useRef, useState } from 'react';
 
 interface ProfileImageProps {
   userImage: string | undefined;
+  userId: string | undefined;
 }
 
-
-const ProfileImage = ({userImage}: ProfileImageProps) => {
+const ProfileImage = ({ userImage }: ProfileImageProps) => {
   const [avatar, setAvatar] = useState<File | null>(null);
   const [fileMessage, setFileMessage] = useState('');
   const [avatarUrl, setAvatarUrl] = useState(userImage);
@@ -57,7 +57,7 @@ const ProfileImage = ({userImage}: ProfileImageProps) => {
     <div className="overflow-hidden rounded-2xl border border-slate-300/50 p-6 md:p-7">
       <div className="flex items-center gap-6">
         <div>
-          {avatarUrl? (
+          {avatarUrl ? (
             <Image
               className="aspect-square rounded-full"
               src={avatarUrl}
@@ -65,10 +65,10 @@ const ProfileImage = ({userImage}: ProfileImageProps) => {
               height={64}
               alt=""
             />
-          ):(
+          ) : (
             <Image
               className="aspect-square rounded-full"
-              src={"/images/dammy.png"}
+              src={'/images/dammy.png'}
               width={64}
               height={64}
               alt="dammy"

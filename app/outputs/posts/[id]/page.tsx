@@ -16,10 +16,10 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <article>
-      {post.userId === user?.id? (
-        <ArticleHeader postId={params.id} isEdit={true}/>
-      ):(
-        <ArticleHeader postId={params.id} isEdit={false}/>
+      {post.userId === user?.id ? (
+        <ArticleHeader postId={params.id} isEdit={true} />
+      ) : (
+        <ArticleHeader postId={params.id} isEdit={false} />
       )}
       <div className="mx-auto max-w-[580px] px-6 pb-24 pt-32 max-md:px-4">
         <div className="mb-10">
@@ -54,7 +54,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleUserLinkHome username={user?.name} href={'/settings'} />
         </div>
       </div>
-      <ArticleFooter user={user}/>
+      <ArticleFooter user={user} />
     </article>
   );
 };

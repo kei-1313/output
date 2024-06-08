@@ -1,5 +1,5 @@
-import { currentUser } from "@/action/user/currentUser";
-import CreatePage from "@/features/outputs/components/CreatePage/CreatePage"
+import { currentUser } from '@/action/user/currentUser';
+import CreatePage from '@/features/outputs/components/CreatePage/CreatePage';
 
 const OutputsCreatePage = async () => {
   const user = await currentUser();
@@ -7,7 +7,7 @@ const OutputsCreatePage = async () => {
     <>
       <CreatePage currentUser={user}></CreatePage>
     </>
-  )
-}
+  );
+};
 
 export default OutputsCreatePage;

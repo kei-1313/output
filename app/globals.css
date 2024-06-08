@@ -170,3 +170,20 @@ h1 {
   height: 100%;
   background-color: white;
 }
+
+/* SettingsLoading */
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #718096;
+  animation: spin 1s infinite linear;
+}

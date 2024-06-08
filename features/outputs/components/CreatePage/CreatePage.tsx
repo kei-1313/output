@@ -23,10 +23,10 @@ interface Tags {
 }
 
 interface CreatePageProps {
-  currentUser: User | null
+  currentUser: User | null;
 }
 
-const CreatePage = ({currentUser} :CreatePageProps) => {
+const CreatePage = ({ currentUser }: CreatePageProps) => {
   const router = useRouter();
 
   const [title, setTitle] = useState('');

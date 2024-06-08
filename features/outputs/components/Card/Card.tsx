@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
           </h2>
         </Link>
         <div className="mt-2 flex items-center gap-2">
-          {post.User.image? (
+          {post.User.image ? (
             <Link href="/" className="block">
               <Image
                 className="rounded-full"
@@ -36,7 +36,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
                 alt=""
               />
             </Link>
-          ):(
+          ) : (
             <Link href="/" className="block">
               <Image
                 className="rounded-full"
