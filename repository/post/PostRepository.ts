@@ -46,25 +46,45 @@ export const createPostRepository = () => {
         },
       });
     },
-    findPostByUser: async (userId: string) => {
-      return await prisma.post.findMany({
-        where: {
-          userId,
-        },
-        include: {
-          PostFormatBases: true,
-          CategoryRelations: {
-            include: {
-              Category: true,
-            },
+    findPostByUser: async (userId: string, count: number) => {
+      if(count > 0) {
+        return await prisma.post.findMany({
+          where: {
+            userId,
           },
-          Likes: true,
-        },
-        orderBy: {
-          created_at: 'desc',
-        },
-        take: 3,
-      });
+          include: {
+            PostFormatBases: true,
+            CategoryRelations: {
+              include: {
+                Category: true,
+              },
+            },
+            Likes: true,
+          },
+          orderBy: {
+            created_at: 'desc',
+          },
+          take: count,
+        });
+      } else {
+        return await prisma.post.findMany({
+          where: {
+            userId,
+          },
+          include: {
+            PostFormatBases: true,
+            CategoryRelations: {
+              include: {
+                Category: true,
+              },
+            },
+            Likes: true,
+          },
+          orderBy: {
+            created_at: 'desc',
+          },
+        });
+      }
     },
     savePostByUser: async ({
       userId,

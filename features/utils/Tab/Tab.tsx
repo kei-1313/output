@@ -36,7 +36,6 @@ const Tab = ({ defaultKey, children, className }: TabProps) => {
     const headerArray: TabHeader[] = [];
     if(Array.isArray(children)) {
       children.forEach(content => {
-        // if (content.type !== TabItem) throw Error("TabItemを利用してください");
         headerArray.push({
           tabKey: content.props.tabKey,
           label: content.props.label,
@@ -48,7 +47,6 @@ const Tab = ({ defaultKey, children, className }: TabProps) => {
         label: children.props.label,
       });
     } else {
-      // -2- childrenの型を指定
       throw Error("TabItemを利用してください");
     }
 

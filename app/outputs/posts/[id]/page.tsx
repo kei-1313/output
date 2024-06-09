@@ -30,7 +30,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
             createAt={post.created_at}
             width={38}
             height={38}
-            href={'/settings'}
+            href={`/user/${post.User.id}`}
             src={post.User.image}
             username={post.User.name}
           />
@@ -45,13 +45,13 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           <ArticleUserIcon
             width={56}
             height={56}
-            href={'/settings'}
+            href={`/user/${post.User.id}`}
             src={post.User.image}
             username={post.User.name}
           />
         </div>
         <div className="flex justify-center">
-          <ArticleUserLinkHome username={user?.name} href={'/settings'} />
+          <ArticleUserLinkHome username={user?.name} href={`/user/${post.User.id}`} />
         </div>
       </div>
       <ArticleFooter user={user} />

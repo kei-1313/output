@@ -19,7 +19,6 @@ interface TagFormProps {
 const TagForm = ({ tags, setTags, categoies }: TagFormProps) => {
   // const [tags, setTags] = useState<Tag[]>([]);
   const [tagText, setTagText] = useState('');
-  console.log(categoies);
 
   //入力値をタグにする
   const handleEnterTag = (event: React.KeyboardEvent<HTMLInputElement>) => {

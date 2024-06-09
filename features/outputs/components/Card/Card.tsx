@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
         </Link>
         <div className="mt-2 flex items-center gap-2">
           {post.User.image ? (
-            <Link href="/" className="block">
+            <Link href={`/user/${post.User.id}`} className="block">
               <Image
                 className="rounded-full"
                 src={post.User.image}
@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
               />
             </Link>
           ) : (
-            <Link href="/" className="block">
+            <Link href={`/user/${post.User.id}`} className="block">
               <Image
                 className="rounded-full"
                 src="/images/dammy.png"
@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({ post }) => {
             </Link>
           )}
           <div className="flex items-center gap-1">
-            <Link href="/" className="block">
+            <Link href={`/user/${post.User.id}`} className="block">
               <span className="text-[13px] text-black">{post.User.name}</span>
             </Link>
             <span className="mt-1 inline-block text-[12px] text-gray-500">

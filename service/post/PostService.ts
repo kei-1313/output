@@ -1,3 +1,5 @@
+import { count } from "console";
+
 interface CreatePostByUserProps {
   body: {
     title: string;
@@ -25,8 +27,8 @@ export const createPostService = (postRepository: any) => {
     getPostById: async (postId: string) => {
       return await postRepository.findPostById(postId);
     },
-    getPostByUser: async (userId: string) => {
-      return await postRepository.findPostByUser(userId);
+    getPostByUser: async (userId: string, count: number) => {
+      return await postRepository.findPostByUser(userId ,count);
     },
     createPostByUser: async (body: CreatePostByUserProps) => {
       return await postRepository.savePostByUser({ ...body });

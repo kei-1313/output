@@ -1,5 +1,6 @@
 'use client';
 
+import ToBackButton from '@/features/utils/ToBackButton/ToBackButton';
 import removeLocalStorage from '@/utils/localstorage/removeLocalStorage';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,15 +8,26 @@ import { HiOutlinePencil } from 'react-icons/hi';
 
 interface ArchiveHeaderProps {
   image: string | undefined;
+  isBackButton: boolean;
 }
 
-const ArchiveHeader = ({ image }: ArchiveHeaderProps) => {
+const ArchiveHeader = ({ image, isBackButton }: ArchiveHeaderProps) => {
   const handleCreateLocalStorageClick = () => {
     removeLocalStorage('ArticleTitle', 'ArticleContent');
   };
 
   return (
-    <div className="flex justify-end px-4">
+    <div className={isBackButton? 'flex px-4 justify-between items-center' : 'flex px-4 justify-end items-center'}>
+      {isBackButton?
+        (
+          <div className="ml-2">
+            <ToBackButton href={'/outputs'} width={30} height={53} />
+          </div>
+        ):
+        (
+          <></>
+        )
+      }
       <div className="flex gap-4">
         <Link href={'/settings'} className="">
           {image ? (
