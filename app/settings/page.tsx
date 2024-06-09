@@ -9,7 +9,7 @@ const settingsPage = async () => {
 
   return (
     <div>
-      <div className="pt-5 pl-5 flex items-center">
+      <div className="flex items-center pl-5 pt-5">
         <ToBackButton href={'/outputs'} width={30} height={53} />
       </div>
       <div className="xs:px-7 mx-auto w-full max-w-screen-md px-6 py-20 sm:px-10">

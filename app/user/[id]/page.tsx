@@ -17,7 +17,7 @@ const userPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="mt-6">
-      <div className="pb-20 min-h-screen">
+      <div className="min-h-screen pb-20">
         <ArchiveHeader image={user?.image} isBackButton={true} />
         <UserInfo postUser={postUser} />
         <Tab defaultKey="item1">

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
 import Link from 'next/link';
@@ -22,7 +21,6 @@ const LoginUserInfo = ({
   height,
   user,
 }: LoginUserInfoProps) => {
-
   return (
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
@@ -40,13 +38,15 @@ const LoginUserInfo = ({
         </div>
       </div>
       <form
-          action={async () => {
-            // signOut() Method will be declared later
-            'use server';
-            await signOut();
-          }}
-        >
-          <button className="text-sm bg-red-600 text-white px-4 py-2 rounded-lg hover:opacity-80">ログアウト</button>
+        action={async () => {
+          // signOut() Method will be declared later
+          'use server';
+          await signOut();
+        }}
+      >
+        <button className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white hover:opacity-80">
+          ログアウト
+        </button>
       </form>
     </div>
   );

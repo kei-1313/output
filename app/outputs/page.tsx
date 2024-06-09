@@ -15,7 +15,7 @@ const outputsPage = async () => {
 
   return (
     <div className="mt-6">
-      <div className="pb-20 min-h-screen">
+      <div className="min-h-screen pb-20">
         <ArchiveHeader image={user?.image} isBackButton={false} />
         <div className="mx-auto mt-5  max-w-[880px] px-5 ">
           <PageTitle>OUTPUTS</PageTitle>
