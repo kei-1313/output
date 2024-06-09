@@ -9,7 +9,7 @@ interface ToBackButtonProps {
 
 const ToBackButton = ({ href, width, height }: ToBackButtonProps) => {
   return (
-    <Link href={href} className="w-20">
+    <Link href={href} className="w-[30px]">
       <FaArrowLeft width={width} height={height} className="hover:opacity-70" />
     </Link>
   );

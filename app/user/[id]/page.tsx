@@ -1,6 +1,7 @@
 import { postByUser } from '@/action/post/postByUser';
 import { currentUser } from '@/action/user/currentUser';
 import userById from '@/action/user/userById';
+import ArticleFooter from '@/features/outputs/components/Footer/ArticleFooter';
 import ArchiveHeader from '@/features/outputs/components/Header/ArchiveHeader';
 
 import UserCardList from '@/features/user/components/CardList/UserCardList';
@@ -15,17 +16,20 @@ const userPage = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
 
   return (
-    <div className="pb-20 pt-6">
-      <ArchiveHeader image={user?.image} isBackButton={true} />
-      <UserInfo postUser={postUser} />
-      <Tab defaultKey="item1">
-        <TabItem tabKey="item1" label="Articles">
-          <UserCardList posts={posts} />
-        </TabItem>
-        <TabItem tabKey="item2" label="ゲットしたポケモン">
-          <PokemonList posts={posts} />
-        </TabItem>
-      </Tab>
+    <div className="mt-6">
+      <div className="pb-20 min-h-screen">
+        <ArchiveHeader image={user?.image} isBackButton={true} />
+        <UserInfo postUser={postUser} />
+        <Tab defaultKey="item1">
+          <TabItem tabKey="item1" label="Articles">
+            <UserCardList posts={posts} />
+          </TabItem>
+          <TabItem tabKey="item2" label="ゲットしたポケモン">
+            <PokemonList posts={posts} />
+          </TabItem>
+        </Tab>
+      </div>
+      <ArticleFooter user={user} />
     </div>
   );
 };
