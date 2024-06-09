@@ -13,8 +13,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { PasswordResetSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/router';
-import { startTransition, useState, useTransition } from 'react';
+
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { FormError } from './form-error';
@@ -23,7 +24,7 @@ import { FormSuccess } from './form-success';
 export const PasswordResetForm = () => {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
-  const [isPending, setIsPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const router = useRouter();
 
@@ -63,7 +64,9 @@ export const PasswordResetForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>
+                  パスワード再設定の送信先を入力してください
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
