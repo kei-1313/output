@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { ReactNode, useContext } from "react";
-import { TabContext } from "../Tab/Tab";
+import { ReactNode, useContext } from 'react';
+import { TabContext } from '../Tab/Tab';
 
 interface TabItemProps {
   tabKey: string | number;
@@ -10,14 +10,10 @@ interface TabItemProps {
   className?: string;
 }
 
-
-const TabItem = ({tabKey, label, children, className}: TabItemProps) => {
-
+const TabItem = ({ tabKey, label, children, className }: TabItemProps) => {
   const { activeKey } = useContext(TabContext);
 
-  return activeKey === tabKey ? (
-    <div className="">{children}</div>
-  ) : null;
-}
+  return activeKey === tabKey ? <div className="">{children}</div> : null;
+};
 
-export default TabItem
+export default TabItem;

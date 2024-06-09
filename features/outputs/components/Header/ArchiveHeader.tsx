@@ -17,17 +17,20 @@ const ArchiveHeader = ({ image, isBackButton }: ArchiveHeaderProps) => {
   };
 
   return (
-    <div className={isBackButton? 'flex px-4 justify-between items-center' : 'flex px-4 justify-end items-center'}>
-      {isBackButton?
-        (
-          <div className="ml-2">
-            <ToBackButton href={'/outputs'} width={30} height={53} />
-          </div>
-        ):
-        (
-          <></>
-        )
+    <div
+      className={
+        isBackButton
+          ? 'flex items-center justify-between px-4'
+          : 'flex items-center justify-end px-4'
       }
+    >
+      {isBackButton ? (
+        <div className="ml-2">
+          <ToBackButton href={'/outputs'} width={30} height={53} />
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="flex gap-4">
         <Link href={'/settings'} className="">
           {image ? (

@@ -47,7 +47,7 @@ export const createPostRepository = () => {
       });
     },
     findPostByUser: async (userId: string, count: number) => {
-      if(count > 0) {
+      if (count > 0) {
         return await prisma.post.findMany({
           where: {
             userId,
