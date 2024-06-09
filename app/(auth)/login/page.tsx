@@ -10,10 +10,10 @@ const LoginPage = () => {
       <LoginForm />
       <SocialButtons />
       <div className="mt-8 flex flex-col items-end gap-2">
-        <Link className="text-sm" href="/register">
+        <Link className="text-sm" href="/signup">
           新規登録の方はこちら
         </Link>
-        <Link className="text-sm" href="">
+        <Link className="text-sm" href="/password-reset">
           パスワードをお忘れの方はこちら
         </Link>
       </div>

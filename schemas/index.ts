@@ -17,3 +17,13 @@ export const SignUpSchema = FormSchema.omit({});
 export const LoginSchema = FormSchema.omit({
   name: true,
 });
+
+export const PasswordResetSchema = FormSchema.omit({
+  name: true,
+  password: true,
+});
+
+export const newPasswordSchema = FormSchema.omit({
+  name: true,
+  email: true,
+});
