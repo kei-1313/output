@@ -2,6 +2,7 @@ import React from 'react';
 import Avatar from '../Avatar/Avatar';
 import Link from 'next/link';
 import { User } from '@/types/types';
+import { signOut } from '@/lib/auth';
 
 interface LoginUserInfoProps {
   href: string;
@@ -31,14 +32,22 @@ const LoginUserInfo = ({
           alt={username}
         />
         <div>
-          <Link className="text-base leading-normal" href={href}>
-            {user?.name}
+          <Link className="text-sm leading-normal" href={href}>
+            @{user?.name}
           </Link>
         </div>
       </div>
-      <div>
-        <button className="text-base">ログアウト</button>
-      </div>
+      <form
+        action={async () => {
+          // signOut() Method will be declared later
+          'use server';
+          await signOut();
+        }}
+      >
+        <button className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white hover:opacity-80">
+          ログアウト
+        </button>
+      </form>
     </div>
   );
 };

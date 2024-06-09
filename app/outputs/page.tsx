@@ -7,21 +7,25 @@ import CardList from '@/features/outputs/components/CardList/CardList';
 import PageTitle from '@/features/outputs/components/Title/PageTitle';
 import Loading from './loading';
 import ArchiveHeader from '@/features/outputs/components/Header/ArchiveHeader';
+import ArticleFooter from '@/features/outputs/components/Footer/ArticleFooter';
 
 const outputsPage = async () => {
   const posts = await postsAll();
   const user = await currentUser();
 
   return (
-    <div className="mt-6 pb-20">
-      <ArchiveHeader image={user?.image} isBackButton={false} />
-      <div className="mx-auto mt-5  max-w-[880px] px-5 ">
-        <PageTitle>OUTPUTS</PageTitle>
-        {/* <CategoryList categories={categories}/> */}
-        <Suspense fallback={<Loading />}>
-          <CardList posts={posts} />
-        </Suspense>
+    <div className="mt-6">
+      <div className="min-h-screen pb-20">
+        <ArchiveHeader image={user?.image} isBackButton={false} />
+        <div className="mx-auto mt-5  max-w-[880px] px-5 ">
+          <PageTitle>OUTPUTS</PageTitle>
+          {/* <CategoryList categories={categories}/> */}
+          <Suspense fallback={<Loading />}>
+            <CardList posts={posts} />
+          </Suspense>
+        </div>
       </div>
+      <ArticleFooter user={user} />
     </div>
   );
 };
