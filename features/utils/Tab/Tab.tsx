@@ -57,12 +57,12 @@ const Tab = ({ defaultKey, children, className }: TabProps) => {
 
   return (
     <TabContext.Provider value={{ activeKey }}>
-      <ul className="flex gap-5 max-w-[880px] mx-auto mb-4">
+      <ul className="flex gap-5 max-w-[880px] mx-auto mb-4 px-4">
         {headers.map((header) => {
           return (
             <li className="" key={ header.tabKey }>
               <button
-                className={header.tabKey === activeKey? 'text-slate-800 text-lg font-bold': 'text-slate-400 text-lg font-bold'}
+                className={header.tabKey === activeKey? 'text-slate-800 text-lg font-bold max-md:text-base': 'text-slate-400 text-lg font-bold max-md:text-base'}
                 onClick={() => setActiveKey(header.tabKey)}
               >
                 {header.label}

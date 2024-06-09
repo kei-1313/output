@@ -16,7 +16,6 @@ const userPage = () => {
           <PokemonList/>
         </TabItem>
       </Tab>
-
     </div>
   )
 }
