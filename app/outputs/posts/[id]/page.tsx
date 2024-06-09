@@ -51,7 +51,10 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
           />
         </div>
         <div className="flex justify-center">
-          <ArticleUserLinkHome username={user?.name} href={`/user/${post.User.id}`} />
+          <ArticleUserLinkHome
+            username={user?.name}
+            href={`/user/${post.User.id}`}
+          />
         </div>
       </div>
       <ArticleFooter user={user} />
