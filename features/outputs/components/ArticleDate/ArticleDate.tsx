@@ -1,5 +1,7 @@
 import formatPostDate from '@/utils/date/formatPostDate';
 import ArticleUserIcon from '../ArticleUserIcon/ArticleUserIcon';
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
+import LikesButton from '@/features/utils/Likes/LikesButton';
 
 interface ArticleDateProps {
   createAt: string;
@@ -20,16 +22,16 @@ const ArticleDate = ({
 }: ArticleDateProps) => {
   return (
     <div className="flex items-center gap-3">
-      <ArticleUserIcon
-        href={href}
-        src={src}
-        width={width}
-        height={height}
-        username={username}
-      />
-      <div>
-        <time className="text-gray-700">{formatPostDate(createAt)}</time>
-      </div>
+        <ArticleUserIcon
+          href={href}
+          src={src}
+          width={width}
+          height={height}
+          username={username}
+        />
+        <div>
+          <time className="text-gray-700">{formatPostDate(createAt)}</time>
+        </div>
     </div>
   );
 };
