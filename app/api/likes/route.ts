@@ -5,6 +5,7 @@ import { createUserRepository } from "@/repository/user/userRepository";
 import { createLikesService } from "@/service/likes/LikesService";
 import { createPostService } from "@/service/post/PostService";
 import { createUserService } from "@/service/user/UserService";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -20,6 +21,8 @@ export async function POST(request: Request) {
     const { userId, postId } = body;
 
     const likes = await likesService.createLikes(postId, userId);
+
+    revalidatePath("/outputs");
     return NextResponse.json(likes);
   } catch (error) {
     console.log(error);
@@ -44,6 +47,7 @@ export async function DELETE(request: Request) {
 
     if(!deletedLike) return false
 
+    revalidatePath("/outputs");
     return NextResponse.json(deletedLike);
   } catch (error) {
     console.log(error);

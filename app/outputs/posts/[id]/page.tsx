@@ -18,8 +18,6 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const likes = user ? await likedPost(params.id, user.id) : false;
   const isLikedPost = likes ? true : false
 
-  console.log(post);
-
   return (
     <article>
       {post.userId === user?.id ? (
@@ -41,7 +39,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
             username={post.User.name}
           />
           <div>
-            <LikesButton isLikedPost={isLikedPost} postId={params.id} userId={user?.id} count={post.Likes.length}/>
+            <LikesButton isLikedPost={isLikedPost} post={post} user={user} count={post.Likes.length}/>
           </div>
         </div>
         <div className="mb-20">
