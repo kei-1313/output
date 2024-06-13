@@ -14,6 +14,7 @@ import TagSettings from '@/features/outputs/components/TagSettings/TagSettings';
 import PreviewButton from '@/features/outputs/components/Button/PreviewButton';
 import { FaArrowLeft } from 'react-icons/fa';
 import { User } from '@/types/types';
+import { revalidatePath } from 'next/cache';
 
 interface Tags {
   id: string;

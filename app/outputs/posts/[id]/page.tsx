@@ -9,10 +9,14 @@ import ArticleUserLinkHome from '@/features/outputs/components/ArticleUserLinkHo
 import ArticleFooter from '@/features/outputs/components/Footer/ArticleFooter';
 import ArticleTitle from '@/features/outputs/components/Title/ArticleTitle';
 import { currentUser } from '@/action/user/currentUser';
+import LikesButton from '@/features/utils/Likes/LikesButton';
+import likedPost from '@/action/likes/likedPost';
 
 const postDetailPage = async ({ params }: { params: { id: string } }) => {
   const post = await postById(params.id);
   const user = await currentUser();
+  const likes = user ? await likedPost(params.id, user.id) : false;
+  const isLikedPost = likes ? true : false
 
   return (
     <article>
@@ -25,7 +29,7 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
         <div className="mb-10">
           <ArticleTitle title={post.title} />
         </div>
-        <div className="mb-10">
+        <div className="mb-10 flex items-center justify-between">
           <ArticleDate
             createAt={post.created_at}
             width={38}
@@ -34,6 +38,9 @@ const postDetailPage = async ({ params }: { params: { id: string } }) => {
             src={post.User.image}
             username={post.User.name}
           />
+          <div>
+            <LikesButton isLikedPost={isLikedPost} post={post} user={user} count={post.Likes.length}/>
+          </div>
         </div>
         <div className="mb-20">
           <ArticleContent content={post.PostFormatBases[0].contents} />

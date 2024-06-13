@@ -7,6 +7,7 @@ import { createCategoryService } from '@/service/category/CategoryService';
 import { CreatecategoryRelationRepository } from '@/repository/categoryRelation/CategoryRelationRepository';
 import { createCategoryRelationService } from '@/service/categoryRelation/CategoryRelationService';
 import getPokemonImage from '@/action/pokemon/getPokemonImage';
+import { revalidatePath } from 'next/cache';
 
 interface Tags {
   label: string;
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
     ),
   );
 
+  revalidatePath("/outputs");
   return NextResponse.json(post);
 }
 
@@ -173,5 +175,6 @@ export async function PUT(request: Request) {
     ),
   );
 
+  revalidatePath(`/outputs/${postId}`);
   return NextResponse.json(post);
 }

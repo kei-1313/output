@@ -1,5 +1,3 @@
-import { count } from 'console';
-
 interface CreatePostByUserProps {
   body: {
     title: string;
