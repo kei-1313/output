@@ -175,5 +175,6 @@ export async function PUT(request: Request) {
     ),
   );
 
+  revalidatePath(`/outputs/${postId}`);
   return NextResponse.json(post);
 }

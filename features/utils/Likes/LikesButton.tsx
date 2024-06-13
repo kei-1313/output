@@ -1,6 +1,7 @@
 "use client"
 
 import { Post, User } from "@/types/types";
+import { revalidatePath } from "next/cache";
 import { useState } from "react"
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io"
 
@@ -32,6 +33,7 @@ const LikesButton = ({isLikedPost, post, user, count}: LikesButtonProps) => {
         },
         body: JSON.stringify(data)
       })
+
     } catch (error) {
       console.log(error);
     }
