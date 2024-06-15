@@ -7,7 +7,6 @@ interface CardListProps {
 }
 
 const CardList: React.FC<CardListProps> = ({ posts }) => {
-  console.log(posts);
   return (
     <div className=" mt-[50px]">
       <ul className="grid grid-cols-2 gap-x-[54px] gap-y-6 max-md:grid-cols-1">

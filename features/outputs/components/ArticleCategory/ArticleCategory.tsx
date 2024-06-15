@@ -8,12 +8,9 @@ interface ArticleCategoryProps {
 const ArticleCategory = ({ categoryName }: ArticleCategoryProps) => {
   return (
     <li>
-      <Link
-        href="/outputs/"
-        className="border-gray-150 rounded-lg border px-2.5 py-1.5 text-base text-gray-700 hover:bg-gray-50"
-      >
+      <span className="border-gray-150 text-gray-70 block rounded-lg border px-2.5 py-1.5 text-base">
         {categoryName}
-      </Link>
+      </span>
     </li>
   );
 };
