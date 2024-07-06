@@ -54,10 +54,19 @@ export async function signUp(values: z.infer<typeof SignUpSchema>) {
 
     const verificationToken = await generateVerificationToken(email);
 
-    await sendVerificationEmail(
+    const { data, error } = await sendVerificationEmail(
       verificationToken.email,
       verificationToken.token,
     );
+
+    if (error) {
+      return {
+        isSuccess: false,
+        error: {
+          message: '確認メールの送信に失敗しました',
+        },
+      };
+    }
 
     return {
       isSuccess: true,
