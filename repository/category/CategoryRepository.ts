@@ -33,6 +33,17 @@ export const createCategoryRepository = () => {
       });
     },
     saveCategoryByUser: async ({ label, name, icon }: saveCategoryByUser) => {
+      const existingCategory = await prisma.category.findUnique({
+        where: {
+          name,
+        },
+      });
+
+      // 既存のカテゴリーがある場合、それを返す
+      if (existingCategory) {
+        return existingCategory;
+      }
+
       return await prisma.category.create({
         data: {
           label,

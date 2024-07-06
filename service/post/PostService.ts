@@ -1,20 +1,16 @@
 interface CreatePostByUserProps {
-  body: {
-    title: string;
-    contents: string;
-    thumbnail: string;
-    userId: string;
-  };
+  title: string;
+  contents: string;
+  thumbnail: string;
+  userId: string;
 }
 interface UpdatePostByUserProps {
-  body: {
-    title: string;
-    contents: string;
-    thumbnail: string;
-    userId: string;
-    postId: string;
-    postFormatBaseId: string;
-  };
+  title: string;
+  contents: string;
+  thumbnail: string;
+  userId: string;
+  postId: string;
+  postFormatBaseId: string;
 }
 
 export const createPostService = (postRepository: any) => {

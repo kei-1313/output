@@ -1,11 +1,7 @@
-import { string } from 'zod';
-
 interface createCategoryByUserProps {
-  body: {
-    label: string;
-    name: string;
-    icon: string;
-  };
+  label: string;
+  name: string;
+  icon: string;
 }
 interface updateCategoryByUserProps {
   body: {

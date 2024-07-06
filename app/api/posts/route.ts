@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 
-import { createPostRepository } from '@/repository/post/PostRepository';
-import { createPostService } from '@/service/post/PostService';
-import { createCategoryRepository } from '@/repository/category/CategoryRepository';
-import { createCategoryService } from '@/service/category/CategoryService';
-import { CreatecategoryRelationRepository } from '@/repository/categoryRelation/CategoryRelationRepository';
-import { createCategoryRelationService } from '@/service/categoryRelation/CategoryRelationService';
 import getPokemonImage from '@/action/pokemon/getPokemonImage';
+import { createCategoryRepository } from '@/repository/category/CategoryRepository';
+import { CreatecategoryRelationRepository } from '@/repository/categoryRelation/CategoryRelationRepository';
+import { createPostRepository } from '@/repository/post/PostRepository';
+import { createCategoryService } from '@/service/category/CategoryService';
+import { createCategoryRelationService } from '@/service/categoryRelation/CategoryRelationService';
+import { createPostService } from '@/service/post/PostService';
 import { revalidatePath } from 'next/cache';
 
 interface Tags {
@@ -17,6 +17,9 @@ interface Tags {
 
 interface Category {
   id: string;
+  label: string;
+  name: string;
+  icon: string | null;
 }
 
 //新規投稿を作成、カテゴリーの追加
@@ -84,7 +87,7 @@ export async function POST(request: Request) {
     ),
   );
 
-  revalidatePath("/outputs");
+  revalidatePath('/outputs');
   return NextResponse.json(post);
 }
 
@@ -126,32 +129,32 @@ export async function PUT(request: Request) {
     await categoryRelationService.getCategoryRelationByPost(post.id);
 
   //タグの名前のリストを作成
-  const newTagNames = tags.map((tag) => tag.name);
+  const newTagNames = tags.map((tag: Tags) => tag.name);
 
   // 削除されたカテゴリを特定
   const categoriesToDelete = currentCategories.filter(
-    (category) => !newTagNames.includes(category.Category.name),
+    (category: Category) => !newTagNames.includes(category.name),
   );
 
   // 先にカテゴリリレーションテーブルからカテゴリIDを使い、データベースから削除（外部制約違反を起こさないため）
   await Promise.all(
-    categoriesToDelete.map(async (category) => {
+    categoriesToDelete.map(async (category: Category) => {
       await categoryRelationService.deleteCategoryRelationByCategoryId(
-        category.Category.id,
+        category.id,
       );
     }),
   );
   // カテゴリテーブルからカテゴリIDを使い、データベースから削除
   await Promise.all(
-    categoriesToDelete.map(async (category) => {
-      await categoryService.deleteCategoryByCategoryId(category.Category.id);
+    categoriesToDelete.map(async (category: Category) => {
+      await categoryService.deleteCategoryByCategoryId(category.id);
     }),
   );
 
   // 新しいカテゴリの処理
   const categoryIds = (
     await Promise.all(
-      tags.map(async (tag) => {
+      tags.map(async (tag: Tags) => {
         const existingCategory = await categoryService.getCategoryByName(
           tag.name,
         );
