@@ -1,12 +1,8 @@
-import likedPost from "@/action/likes/likedPost";
-import { createLikesRepository } from "@/repository/likes/LikesRepository";
-import { createPostRepository } from "@/repository/post/PostRepository";
-import { createUserRepository } from "@/repository/user/userRepository";
-import { createLikesService } from "@/service/likes/LikesService";
-import { createPostService } from "@/service/post/PostService";
-import { createUserService } from "@/service/user/UserService";
-import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+import likedPost from '@/action/likes/likedPost';
+import { createLikesRepository } from '@/repository/likes/LikesRepository';
+import { createLikesService } from '@/service/likes/LikesService';
+import { revalidatePath } from 'next/cache';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
@@ -16,17 +12,19 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     if (!body.userId || !body.postId) {
-      return new NextResponse("userId and postId are required", { status: 400 });
+      return new NextResponse('userId and postId are required', {
+        status: 400,
+      });
     }
     const { userId, postId } = body;
 
     const likes = await likesService.createLikes(postId, userId);
 
-    revalidatePath("/outputs");
+    revalidatePath('/outputs');
     return NextResponse.json(likes);
   } catch (error) {
     console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
 
@@ -37,22 +35,27 @@ export async function DELETE(request: Request) {
     const likesService = createLikesService(likesRepository);
     const body = await request.json();
     if (!body.userId || !body.postId) {
-      return new NextResponse("userId and postId are required", { status: 400 });
+      return new NextResponse('userId and postId are required', {
+        status: 400,
+      });
     }
 
     const { userId, postId } = body;
     const like = await likedPost(postId, userId);
+    if (!like) {
+      return new NextResponse('Like not found', { status: 404 });
+    }
 
     const deletedLike = await likesService.deleteLikes(like.id);
 
-    if(!deletedLike) return false
+    if (!deletedLike) {
+      return new NextResponse('Failed to delete like', { status: 404 });
+    }
 
-    revalidatePath("/outputs");
+    revalidatePath('/outputs');
     return NextResponse.json(deletedLike);
   } catch (error) {
     console.log(error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
-
-
