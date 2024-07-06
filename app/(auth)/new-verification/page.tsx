@@ -35,7 +35,7 @@ const NewVerificationForm = () => {
     setTimeout(() => {
       router.push('/login');
     }, 3000);
-  }, [token, success, error]);
+  }, [token, success, error, router]);
 
   useEffect(() => {
     onSubmit();
